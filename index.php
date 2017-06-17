@@ -23,34 +23,59 @@ $items = require 'product_list.php';
             $("#source, #destination").sortable({
                 connectWith: ".connectedSortable"
             }).disableSelection();
+
+            var animationTime = 3000;
+
+            $(".product").click(function () {
+                $(".products").animate({
+                    width: "5em"
+                }, animationTime, function () {
+                    // Animation complete.
+                });
+                $(".order").show().animate({
+                    width: "17em"
+                }, animationTime);
+                $(".source li").animate({
+                    "font-size": "50%"
+                }, animationTime);
+            });
         });
     </script>
 
 </head>
 <body>
 
-<div id="products">
+<div id="order_wrapper">
 
-    <ul class="source connectedSortable">
+    <div class="products">
 
-        <?php foreach ($items as $elem): ?>
+        <ul class="source connectedSortable">
 
-            <li class="ui-state-default" data-id="<?php echo sc($elem['id']) ?>">
-                <img class="product_image" src="images/<?php echo sc($elem['image']) ?>"
-                     alt="<?php echo sc($elem['name']) ?>">
+            <?php foreach ($items as $elem): ?>
 
-                <div class="item-info">
-                    <div class="product_name"><?php echo sc($elem['name']) ?></div>
-                    <div class="product_price"><?php echo sc($elem['price']) ?></div>
-                    <img src="ruble_sign.png" style="width: 79px; height: 100px;">
-                </div>
-            </li>
+                <li class="ui-state-default product" data-id="<?php echo sc($elem['id']) ?>"
+                    title="Нажмите чтобы выбрать">
+                    <img class="product_image" src="images/<?php echo sc($elem['image']) ?>"
+                         alt="<?php echo sc($elem['name']) ?>" title="<?php echo sc($elem['name']) ?>">
 
-        <?php endforeach; ?>
+                    <div class="item-info">
+                        <div class="product_name"><?php echo sc($elem['name']) ?></div>
+                        <div class="product_price"><?php echo sc($elem['price']) ?></div>
+                        <img class="ruble_sign" src="ruble_sign.png" alt="ruble">
+                    </div>
+                </li>
 
-    </ul>
+            <?php endforeach; ?>
 
-    <ul class="destination connectedSortable" style="display:none"></ul>
+        </ul>
+
+        <!--<ul class="destination connectedSortable" style="display:none"></ul>-->
+
+    </div>
+
+    <div class="order" style="display:none">
+        <ul class="destination connectedSortable"></ul>
+    </div>
 
 </div>
 

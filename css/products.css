@@ -3,7 +3,13 @@ body, html {
     color: #222;
 }
 
-#products {
+#order_wrapper {
+    width: 30em;
+    background-color: green;
+    height: 30em;
+}
+
+.products {
     width: 30em;
     min-height: 20em;
     /*margin: 0 19px 0 0;*/
@@ -15,6 +21,7 @@ body, html {
     border-radius: 8px;
     height: 30em;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .product_name {
@@ -25,7 +32,7 @@ body, html {
 }
 
 .product_image {
-    height: 100%;
+    height: 95%;
     float: left;
 }
 
@@ -42,12 +49,13 @@ body, html {
     cursor: pointer;
     border: 1px solid #eee;
     width: 100%;
-    min-height: 20px;
+    min-height: 20em;
     list-style-type: none;
     margin: 0;
     padding: 5px 0 0 0;
     float: left;
     margin-right: 10px;
+    overflow: hidden;
 }
 
 /*.source li, .destination li {*/
@@ -55,10 +63,23 @@ body, html {
     margin: 0 5px 5px 5px;
     font-size: 1.2em;
     /*width: 120px;*/
-    height: 160px;
+    height: 8em;
     padding: .5em;
 }
 
+.order {
+    border: 1px solid #eee;
+    min-height: 20em;
+    width: 0;
+    /*float: right;*/
+    background-color: red;
+    list-style-type: none;
+    float: right;
+}
+
+.ruble_sign {
+    height: 3em;
+}
 
 /*.price-value {
     height: 3em;
