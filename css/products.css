@@ -1,0 +1,35 @@
+body, html {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #222;
+}
+
+#products {
+    width: 15em;
+    min-height: 20em;
+    /*margin: 0 19px 0 0;*/
+    padding: 1em;
+    float: left;
+    border: 1px solid #dddddd;
+    background: #fff;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    height:30em;
+    overflow-y: scroll;
+}
+
+.product_image {
+    width: 150px;
+    height: 150px;
+}
+
+/*.price-value {
+    height: 3em;
+    margin: 0 0.5em 0 0;
+    padding: 0 18px 0 0;
+    float: left;
+    font-family: 'TimesBold';
+    font-size: 24px;
+    color: #d80014;
+    background: url('../ruble.png') right bottom no-repeat;
+}*/
+
