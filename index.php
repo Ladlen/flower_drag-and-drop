@@ -18,26 +18,6 @@ $items = require 'product_list.php';
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
 
-    <style>
-        #source, #destination {
-            border: 1px solid #eee;
-            width: 142px;
-            min-height: 20px;
-            list-style-type: none;
-            margin: 0;
-            padding: 5px 0 0 0;
-            float: left;
-            margin-right: 10px;
-        }
-
-        #source li, #destination li {
-            margin: 0 5px 5px 5px;
-            padding: 5px;
-            font-size: 1.2em;
-            width: 120px;
-        }
-    </style>
-
     <script>
         $(function () {
             $("#source, #destination").sortable({
@@ -51,7 +31,7 @@ $items = require 'product_list.php';
 
 <div id="products">
 
-    <ul id="source" class="connectedSortable">
+    <ul class="source connectedSortable">
 
         <?php foreach ($items as $elem): ?>
 
@@ -70,7 +50,7 @@ $items = require 'product_list.php';
 
     </ul>
 
-    <ul id="destination" class="connectedSortable" style="display:none"></ul>
+    <ul class="destination connectedSortable" style="display:none"></ul>
 
 </div>
 

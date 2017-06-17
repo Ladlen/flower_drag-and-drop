@@ -4,7 +4,7 @@ body, html {
 }
 
 #products {
-    width: 15em;
+    width: 30em;
     min-height: 20em;
     /*margin: 0 19px 0 0;*/
     padding: 1em;
@@ -13,14 +13,40 @@ body, html {
     background: #fff;
     -webkit-border-radius: 8px;
     border-radius: 8px;
-    height:30em;
+    height: 30em;
     overflow-y: scroll;
 }
 
 .product_image {
-    width: 150px;
-    height: 150px;
+    height: 100%;
+    float: left;
 }
+
+.product_price {
+    float: left;
+}
+
+/*.source, .destination {*/
+.source  {
+    border: 1px solid #eee;
+    width: 100%;
+    min-height: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    float: left;
+    margin-right: 10px;
+}
+
+/*.source li, .destination li {*/
+.source li {
+    margin: 0 5px 5px 5px;
+    font-size: 1.2em;
+    /*width: 120px;*/
+    height: 160px;
+    padding: .5em;
+}
+
 
 /*.price-value {
     height: 3em;
