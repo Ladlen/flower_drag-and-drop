@@ -20,17 +20,16 @@ $items = require 'product_list.php';
 
     <script>
         $(function () {
-            $("#source, #destination").sortable({
-                connectWith: ".connectedSortable"
-            }).disableSelection();
-
             var animationTime = 3000;
-
             $(".product").click(function () {
                 $(".products").animate({
-                    width: "5em"
+                    width: "6em"
                 }, animationTime, function () {
                     // Animation complete.
+                    $('.product').off('click');
+                    $(".source, .destination").sortable({
+                        connectWith: ".connectedSortable"
+                    }).disableSelection();
                 });
                 $(".order").show().animate({
                     width: "17em"
@@ -38,6 +37,7 @@ $items = require 'product_list.php';
                 $(".source li").animate({
                     "font-size": "50%"
                 }, animationTime);
+                $(".item-info").fadeOut(animationTime);
             });
         });
     </script>
@@ -60,8 +60,10 @@ $items = require 'product_list.php';
 
                     <div class="item-info">
                         <div class="product_name"><?php echo sc($elem['name']) ?></div>
-                        <div class="product_price"><?php echo sc($elem['price']) ?></div>
-                        <img class="ruble_sign" src="ruble_sign.png" alt="ruble">
+                        <div class="product_price_block">
+                            <div class="product_price"><?php echo sc($elem['price']) ?></div>
+                            <img class="ruble_sign" src="ruble_sign.png" alt="ruble">
+                        </div>
                     </div>
                 </li>
 
