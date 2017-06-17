@@ -17,6 +17,13 @@ body, html {
     overflow-y: scroll;
 }
 
+.product_name {
+    display: inline-block;
+    width: 10.5em;
+    font-size: 1.3em;
+    text-align: center;
+}
+
 .product_image {
     height: 100%;
     float: left;
@@ -24,10 +31,15 @@ body, html {
 
 .product_price {
     float: left;
+    color: #d80014;
+    font-family: 'TimesBold';
+    font-weight: 700;
+    font-size: 3.5em;
 }
 
 /*.source, .destination {*/
 .source  {
+    cursor: pointer;
     border: 1px solid #eee;
     width: 100%;
     min-height: 20px;
