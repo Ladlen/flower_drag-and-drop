@@ -14,7 +14,7 @@ $items = require 'product_list.php';
     <meta charset="UTF-8">
     <title>Продажа цветов</title>
     <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.css">
-    <link rel="stylesheet" href="css/products.css">
+    <link rel="stylesheet" href="css/products.old.css">
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
     <!--<script type="text/javascript" src="js/products.old.js"></script>-->
@@ -56,7 +56,7 @@ $items = require 'product_list.php';
 
                 <li class="ui-state-default product" data-id="<?php echo sc($elem['id']) ?>"
                     title="Нажмите чтобы выбрать">
-                    <img class="product_image" src="images/<?php echo sc($elem['image']) ?>"
+                    <img class="product_image" src="images/<?php echo sc($elem['image_preview']) ?>"
                          alt="<?php echo sc($elem['name']) ?>" title="<?php echo sc($elem['name']) ?>">
 
                     <div class="item-info">

@@ -28,9 +28,10 @@ $items = require 'product_list.php';
 
             <?php foreach ($items as $elem): ?>
 
-            <li class="ui-state-default product" data-id="<?php echo sc($elem['id']) ?>"><!--<div class="constructor-item">-->
-                <img class="product_image" src="images/<?php echo sc($elem['image_preview']) ?>"
-                     alt="<?php echo sc($elem['name']) ?>" title="<?php echo sc($elem['name']) ?>">
+            <li class="ui-state-default product" data-id="<?php echo sc($elem['id']) ?>">
+                <!--<img class="product_image" src="images/<?php /*echo sc($elem['image_preview']) */?>"
+                     alt="<?php /*echo sc($elem['name']) */?>" title="<?php /*echo sc($elem['name']) */?>">-->
+                <div class="product_image" title="<?php echo sc($elem['name']) ?>" style="background-image: url('images/<?php echo sc($elem['image_top']) ?>')"></div>
 
                 <div class="item-info">
                     <div class="product_name"><?php echo sc($elem['name']) ?></div>

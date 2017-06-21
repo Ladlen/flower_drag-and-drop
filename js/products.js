@@ -1,5 +1,5 @@
 $(function () {
-    var animationTime = 3000;
+    /*var animationTime = 3000;
     $(".product").click(function () {
         $(".source").animate({
             width: "6em"
@@ -17,5 +17,5 @@ $(function () {
             "font-size": "50%"
         }, animationTime);
         $(".item-info").fadeOut(animationTime);
-    });
+    });*/
 });

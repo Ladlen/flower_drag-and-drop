@@ -52,6 +52,7 @@ html, body {
     border-radius: 8px;
 }
 
+/*
 div.products div.products {
     width: 254px;
     height: 64px;
@@ -65,4 +66,64 @@ div.products div.products {
     border-radius: 6px;
     -webkit-box-shadow: 1px 2px 10px -3px #CACACA;
     box-shadow: 1px 2px 10px -3px #CACACA;
+}
+*/
+
+.product {
+    width: 254px;
+    height: 64px;
+    margin: 0 0 14px 0;
+    padding: 8px;
+    display: block;
+    float: left;
+    background: #fff;
+    border: 1px solid #dddddd;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 1px 2px 10px -3px #CACACA;
+    box-shadow: 1px 2px 10px -3px #CACACA;
+}
+
+.product .product_image {
+    width: 69px;
+    height: 64px;
+    background-repeat: no-repeat;
+    background-position: center;
+    float: left;
+}
+
+.source  {
+    cursor: pointer;
+    border: 1px solid #eee;
+    width: 100%;
+    min-height: 20em;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    float: left;
+    margin-right: 10px;
+    overflow: hidden;
+}
+
+.source li {
+    margin: 0 5px 5px 5px;
+    font-size: 1.2em;
+    padding: .5em;
+    overflow: hidden;
+}
+
+.ruble_sign {
+    height: 1em;
+}
+
+.item-info {
+    overflow: hidden;
+}
+
+.product_price {
+    float: left;
+    color: #d80014;
+    font-family: 'TimesBold';
+    font-weight: 700;
+    font-size: 1.5em;
 }
