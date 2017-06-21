@@ -73,7 +73,7 @@ body, html {
     overflow: hidden;
 }
 
-.order {
+.destination {
     border: 1px solid #eee;
     min-height: 20em;
     width: 0;

@@ -22,7 +22,7 @@ $items = require 'product_list.php';
         $(function () {
             var animationTime = 3000;
             $(".product").click(function () {
-                $(".products").animate({
+                $(".source").animate({
                     width: "6em"
                 }, animationTime, function () {
                     // Animation complete.
@@ -31,7 +31,7 @@ $items = require 'product_list.php';
                         connectWith: ".connectedSortable"
                     }).disableSelection();
                 });
-                $(".order").show().animate({
+                $(".destination").show().animate({
                     width: "17em"
                 }, animationTime);
                 $(".source li").animate({
@@ -71,13 +71,12 @@ $items = require 'product_list.php';
 
         </ul>
 
-        <!--<ul class="destination connectedSortable" style="display:none"></ul>-->
-
+        <ul class="destination connectedSortable" style="display:none"></ul>
     </div>
 
-    <div class="order" style="display:none">
+    <!--<div class="order" style="display:none">
         <ul class="destination connectedSortable"></ul>
-    </div>
+    </div>-->
 
 </div>
 
