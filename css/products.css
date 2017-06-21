@@ -90,10 +90,11 @@ div.products div.products {
     background-repeat: no-repeat;
     background-position: center;
     float: left;
+    margin-right: 8px;
 }
 
 .source  {
-    cursor: pointer;
+    /*cursor: pointer;*/
     border: 1px solid #eee;
     width: 100%;
     min-height: 20em;
@@ -106,7 +107,7 @@ div.products div.products {
 }
 
 .source li {
-    margin: 0 5px 5px 5px;
+    margin: 0 0 14px 0;
     font-size: 1.2em;
     padding: .5em;
     overflow: hidden;
@@ -116,14 +117,25 @@ div.products div.products {
     height: 1em;
 }
 
-.item-info {
-    overflow: hidden;
-}
-
 .product_price {
     float: left;
     color: #d80014;
     font-family: 'TimesBold';
     font-weight: 700;
-    font-size: 1.5em;
+    font-size: 1.8em;
+}
+
+.item-info {
+    height: 64px;
+    overflow: hidden;
+    display: table;
+}
+
+.item-info .product_name {
+    display: table-row;
+}
+
+.item-info .product_price_block {
+    display: table-cell;
+    vertical-align: bottom;
 }
