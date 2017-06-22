@@ -75,9 +75,9 @@ $items = require 'product_list.php';
         <ul class="destination connectedSortable" style="display:none"></ul>
     </div>
 
-<!--<div class="order" style="display:none">
-    <ul class="destination connectedSortable"></ul>
-</div>-->
+    <!--<div class="order" style="display:none">
+        <ul class="destination connectedSortable"></ul>
+    </div>-->
 
 </div>
 

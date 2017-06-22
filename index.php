@@ -9,15 +9,20 @@ $items = require 'product_list.php';
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Продажа цветов</title>
-    <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui.css">
     <link rel="stylesheet" href="css/products.css">
+
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script src="js/jquery-mousewheel-3.1.13/jquery.mousewheel.min.js"></script>
     <script type="text/javascript" src="js/products.js"></script>
+
 </head>
 <body>
 
@@ -26,18 +31,19 @@ $items = require 'product_list.php';
     <div class="products">
         <ul class="source connectedSortable">
 
-            <?php foreach ($items as $elem): ?>
+            <?php foreach ($items as $o => $elem): ?>
 
             <li class="ui-state-default product" data-id="<?php echo sc($elem['id']) ?>">
-                <!--<img class="product_image" src="images/<?php /*echo sc($elem['image_preview']) */?>"
+                <!--<img class="product_image" src="images/products/<?php /*echo sc($elem['image_preview']) */?>"
                      alt="<?php /*echo sc($elem['name']) */?>" title="<?php /*echo sc($elem['name']) */?>">-->
-                <div class="product_image" title="<?php echo sc($elem['name']) ?>" style="background-image: url('images/<?php echo sc($elem['image_top']) ?>')"></div>
+                <div class="product_image" title="<?php echo sc($elem['name']) ?>" style="background-image: url('images/products/<?php echo sc($elem['image_top']) ?>')"></div>
 
                 <div class="item-info">
-                    <div class="product_name"><?php echo sc($elem['name']) ?></div>
+                    <label for="product_amount_<?php echo $o ?>" class="product_name"><?php echo sc($elem['name']) ?></label>
                     <div class="product_price_block">
                         <div class="product_price"><?php echo sc($elem['price']) ?></div>
-                        <img class="ruble_sign" src="ruble_sign.png" alt="ruble">
+                        <img class="ruble_sign" src="images/ruble_sign_2.png" alt="ruble">
+                        <input id="product_amount_<?php echo $o ?>" class="product_amount" value="0" maxlength="3">
                     </div>
                 </div>
 

@@ -123,7 +123,7 @@ div.products div.products {
 }
 
 .item-info {
-    height: 70px;
+    height: 68px;
     overflow: hidden;
     display: table;
 }
@@ -134,11 +134,12 @@ div.products div.products {
 
 .item-info .product_price_block {
     display: table-cell;
-    vertical-align: bottom;
+    vertical-align: middle;
+    /*display: inline-block;*/
 }
 
 .ruble_sign {
-    padding: 10px 0 0 5px;
+    padding: 10px 5px 0 5px;
     height: 15px;
 }
 
@@ -147,9 +148,60 @@ div.products div.products {
     height: 25px;
     padding: 0;
     display: block;
-    background: url('../in-bouquet.png') 0 0 no-repeat;
+    background: url('../images/in-bouquet.png') 0 0 no-repeat;
     position: absolute;
-    right: 10px;
+    right: 8px;
     bottom: 10px;
     cursor: pointer;
+}
+
+.product_amount {
+    width: 15px;
+    /*padding-left: 5px;*/
+    height: 10px;
+    color: gray;
+}
+
+.product_amount {
+    width: 44px;
+    height: 26px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #dedede;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    /*float: left;*/
+}
+
+.product_amount {
+    width: 42px;
+    height: 26px;
+    margin: 0;
+    padding: 0 0 0 5px;
+    display: block;
+    float: left;
+    border: none;
+    outline: none;
+    background: url('../images/count-product.png') repeat-x;
+    color: #888888;
+}
+
+.products .ui-spinner-button.ui-spinner-up {
+    width: 14px;
+    height: 14px;
+    margin: 0;
+    padding: 0;
+    display: block;
+    float: right;
+    background: url('../images/count-up.png') top right no-repeat;
+}
+
+.products .ui-spinner-button.ui-spinner-down {
+    width: 14px;
+    height: 12px;
+    margin: 0;
+    padding: 0;
+    display: block;
+    float: right;
+    background: url('../images/count-down.png') top right no-repeat;
 }
