@@ -205,3 +205,15 @@ div.products div.products {
     float: right;
     background: url('../images/count-down.png') top right no-repeat;
 }
+
+.ui-widget.ui-widget-content {
+    border-color: #ddd;
+}
+
+.ui-spinner.ui-corner-all {
+    border-radius: 5px;
+}
+
+.ui-spinner.ui-corner-all a {
+    border: none;
+}

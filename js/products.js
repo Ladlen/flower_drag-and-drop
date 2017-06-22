@@ -1,5 +1,5 @@
 jQuery(function ($) {
-    var spinner = $(".product_amount").spinner();
+    var spinner = $(".product_amount").spinner({min:0, max:500});
     /*var animationTime = 3000;
      $(".product").click(function () {
      $(".source").animate({
