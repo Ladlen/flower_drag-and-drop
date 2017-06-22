@@ -93,7 +93,7 @@ div.products div.products {
     margin-right: 8px;
 }
 
-.source  {
+.source {
     /*cursor: pointer;*/
     border: 1px solid #eee;
     width: 100%;
@@ -111,10 +111,7 @@ div.products div.products {
     font-size: 1.2em;
     padding: .5em;
     overflow: hidden;
-}
-
-.ruble_sign {
-    height: 1em;
+    position: relative;
 }
 
 .product_price {
@@ -126,7 +123,7 @@ div.products div.products {
 }
 
 .item-info {
-    height: 64px;
+    height: 70px;
     overflow: hidden;
     display: table;
 }
@@ -138,4 +135,21 @@ div.products div.products {
 .item-info .product_price_block {
     display: table-cell;
     vertical-align: bottom;
+}
+
+.ruble_sign {
+    padding: 10px 0 0 5px;
+    height: 15px;
+}
+
+.in-bouquet {
+    width: 41px;
+    height: 25px;
+    padding: 0;
+    display: block;
+    background: url('../in-bouquet.png') 0 0 no-repeat;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    cursor: pointer;
 }

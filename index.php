@@ -40,6 +40,8 @@ $items = require 'product_list.php';
                         <img class="ruble_sign" src="ruble_sign.png" alt="ruble">
                     </div>
                 </div>
+
+                <div class="in-bouquet"></div>
             </li>
 
             <?php endforeach; ?>
