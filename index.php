@@ -34,7 +34,8 @@ $productItems = require 'product_list.php';
             <?php foreach ($productItems as $o => $elem): ?>
 
                 <li class="ui-state-default product" data-id="<?php echo sc($elem['id']) ?>"
-                    data-image_top="<?php echo sc($elem['image_top']) ?>">
+                    data-image_top="<?php echo sc($elem['image_top']) ?>" data-price="<?php echo sc($elem['price']) ?>"
+                    data-name="<?php echo sc($elem['name']) ?>">
                     <div class="product_image" title="<?php echo sc($elem['name']) ?>"
                          style="background-image: url('images/products/<?php echo sc($elem['image_preview']) ?>')"></div>
 
@@ -53,7 +54,7 @@ $productItems = require 'product_list.php';
                                         <td><img class="ruble_sign" src="images/ruble_sign_2.png" alt="ruble"></td>
                                         <td><input id="product_amount_<?php echo sc($o) ?>" class="product_amount"
                                                    value="0"
-                                                   maxlength="3"></td>
+                                                   maxlength="3" type="number"></td>
                                         <td>
                                             <div class="in-bouquet"></div>
                                         </td>
