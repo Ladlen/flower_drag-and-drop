@@ -30,8 +30,12 @@ jQuery(function ($) {
         spinOccured(itemId, $(spinnerSelector).val());
     });
 
-    function spinOccured(id, value) {
-        var diff = value - $(".destination img.product_" + id).length;
+    /**
+     * @param id    - идентификатор цветка
+     * @param amount - количеcтво добавляемых цветков
+     */
+    function spinOccured(id, amount) {
+        var diff = amount - $(".destination img.product_" + id).length;
 
         if (diff > 0) {
             // add items
@@ -46,14 +50,41 @@ jQuery(function ($) {
         }   // else no changes
     }
 
-    function removeFlowers(destination) {
+    /**
+     * Упорядочить цветки в букет.
+     * @param newId     - id цветков если нужны плейсхолдеры для новых цветков
+     * @param newAmount - количество новых цветков если есть
+     */
+    /*function orderFlowers(newId, newAmount) {
+        var i = 0;
+        var prodAmounts = {};
+        for (; ;) {
+            var productList = $(".destination .product_" + i);
+            if (!productList.length) {
+                break;
+            }
+            prodAmounts[i] = productList.length;
+            prodAmounts.sort();
+        }
+    }*/
 
+    function calculateBouquetSizes(newAmount) {
+        var totalFlowerCount = $(".destination .product_item").length + newAmount;
+        var maxBouqetDiameter = Math.max($(".destination").width(), $(".destination").height()) * 0.8;
+
+        var sizes = {};
+
+        sizes.bouquetDiameter = totalFlowerCount * Math.sqrt(totalFlowerCount);
+        sizes.maxFlowerDiameter = bouquetDiameter * 0.7;
+        sizes.minFlowerDiameter = maxFlowerDiameter * 0.6;
+
+        return sizes;
     }
 
     function raiseFlower(x, y, width, id) {
         var src = $(".product[data-id=" + id).data("image_top");
         src = '../images/products/' + encodeURIComponent(src)
-        var s = "<img src='" + src + "' style='width:2px;opacity:0.1;left:" + x + "px;top:" + y + "px' class='product_" + id + "'>";
+        var s = "<img src='" + src + "' style='width:2px;opacity:0.1;left:" + x + "px;top:" + y + "px' class='product_item product_" + id + "'>";
         $(".destination").append(s);
         $(".destination img:last-child").animate({
             width: width + "px",
