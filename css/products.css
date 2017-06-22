@@ -1,9 +1,15 @@
 * {
     outline: none;
+    color: #666666;
 }
 
 html, body {
     width: 100%;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
 }
 
 .wrapper {
@@ -132,10 +138,14 @@ div.products div.products {
     display: table-row;
 }
 
-.item-info .product_price_block {
-    display: table-cell;
-    vertical-align: middle;
+.item-info .product_price_block td {
+    /*display: table-cell;*/
+    vertical-align: bottom;
     /*display: inline-block;*/
+}
+
+.product_price {
+    line-height: 1em;
 }
 
 .ruble_sign {
@@ -155,9 +165,8 @@ div.products div.products {
     cursor: pointer;
 }
 
-.product_amount {
+/*.product_amount {
     width: 15px;
-    /*padding-left: 5px;*/
     height: 10px;
     color: gray;
 }
@@ -170,8 +179,7 @@ div.products div.products {
     border: 1px solid #dedede;
     -webkit-border-radius: 4px;
     border-radius: 4px;
-    /*float: left;*/
-}
+}*/
 
 .product_amount {
     width: 42px;

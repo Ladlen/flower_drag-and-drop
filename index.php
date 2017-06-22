@@ -33,22 +33,34 @@ $items = require 'product_list.php';
 
             <?php foreach ($items as $o => $elem): ?>
 
-            <li class="ui-state-default product" data-id="<?php echo sc($elem['id']) ?>">
-                <!--<img class="product_image" src="images/products/<?php /*echo sc($elem['image_preview']) */?>"
-                     alt="<?php /*echo sc($elem['name']) */?>" title="<?php /*echo sc($elem['name']) */?>">-->
-                <div class="product_image" title="<?php echo sc($elem['name']) ?>" style="background-image: url('images/products/<?php echo sc($elem['image_top']) ?>')"></div>
+                <li class="ui-state-default product" data-id="<?php echo sc($elem['id']) ?>">
+                    <div class="product_image" title="<?php echo sc($elem['name']) ?>"
+                         style="background-image: url('images/products/<?php echo sc($elem['image_top']) ?>')"></div>
 
-                <div class="item-info">
-                    <label for="product_amount_<?php echo $o ?>" class="product_name"><?php echo sc($elem['name']) ?></label>
-                    <div class="product_price_block">
-                        <div class="product_price"><?php echo sc($elem['price']) ?></div>
-                        <img class="ruble_sign" src="images/ruble_sign_2.png" alt="ruble">
-                        <input id="product_amount_<?php echo $o ?>" class="product_amount" value="0" maxlength="3">
-                    </div>
-                </div>
-
-                <div class="in-bouquet"></div>
-            </li>
+                    <table class="item-info">
+                        <tr>
+                            <td><label for="product_amount_<?php echo $o ?>"
+                                       class="product_name"><?php echo sc($elem['name']) ?></label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                            <table class="product_price_block">
+                                <tr>
+                                    <td>
+                                        <div class="product_price"><?php echo sc($elem['price']) ?></div>
+                                    </td>
+                                    <td><img class="ruble_sign" src="images/ruble_sign_2.png" alt="ruble"></td>
+                                    <td><input id="product_amount_<?php echo $o ?>" class="product_amount" value="0"
+                                               maxlength="3"></td>
+                                    <td>
+                                        <div class="in-bouquet"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
 
             <?php endforeach; ?>
 
