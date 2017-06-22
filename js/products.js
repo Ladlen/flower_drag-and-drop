@@ -26,7 +26,8 @@ jQuery(function ($) {
         var itemId = elem.data("id");
         var spinnerSelector = "#product_amount_" + itemId;
         $(spinnerSelector).spinner("stepUp", 1);
-        raiseFlower(itemId);
+        //raiseFlower(itemId);
+        spinOccured(itemId, $(spinnerSelector).val());
     });
 
     function spinOccured(id, value) {
@@ -45,13 +46,17 @@ jQuery(function ($) {
         }   // else no changes
     }
 
-    function raiseFlower(id) {
+    function removeFlowers(destination) {
+
+    }
+
+    function raiseFlower(x, y, width, id) {
         var src = $(".product[data-id=" + id).data("image_top");
         src = '../images/products/' + encodeURIComponent(src)
         var s = "<img src='" + src + "' style='width:2px;opacity:0.1;left:" + x + "px;top:" + y + "px' class='product_" + id + "'>";
         $(".destination").append(s);
         $(".destination img:last-child").animate({
-            width: "60px",
+            width: width + "px",
             opacity: 1
         }, 400);
         /*var fInterval = setInterval(function () {
