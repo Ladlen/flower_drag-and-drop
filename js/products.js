@@ -50,23 +50,59 @@ jQuery(function ($) {
         }   // else no changes
     }
 
+    function updateBoquet() {
+        var flowers = [];
+        $(".source .product").each(function (index) {
+            var info = {};
+            info.image_top = $(this).data("image_top");
+            info.amount = $(this).find(".product_amount").val();
+            flowers[$(this).data("id")] = info;
+        });
+
+        dimBoquet();
+        showFlowers(flowers);
+    }
+
+    function dimBoquet() {
+        $(".destination .product_item").fadeOut(200);
+    }
+
+    function showFlowers(flowers) {
+        for (var fl in flowers) {
+            for (var i; i < flowers[fl].amount; ++i) {
+                var pos = getRandomPosition(radius);
+                //raiseFlower(pos.x, pos.y, 50, flowers[fl].image_top)
+                raiseFlower(pos.x, pos.y, 50, i)
+            }
+        }
+    }
+
+    function getRandomPosition(radius) {
+        var pt_angle = Math.random() * 2 * Math.PI;
+        var pt_radius_sq = Math.random() * radius * radius;
+        var pt_x = Math.sqrt(pt_radius_sq) * Math.cos(pt_angle);
+        var pt_y = Math.sqrt(pt_radius_sq) * Math.sin(pt_angle);
+
+        return {x: pt_x, y: pt_y};
+    }
+
     /**
      * Упорядочить цветки в букет.
      * @param newId     - id цветков если нужны плейсхолдеры для новых цветков
      * @param newAmount - количество новых цветков если есть
      */
     /*function orderFlowers(newId, newAmount) {
-        var i = 0;
-        var prodAmounts = {};
-        for (; ;) {
-            var productList = $(".destination .product_" + i);
-            if (!productList.length) {
-                break;
-            }
-            prodAmounts[i] = productList.length;
-            prodAmounts.sort();
-        }
-    }*/
+     var i = 0;
+     var prodAmounts = {};
+     for (; ;) {
+     var productList = $(".destination .product_" + i);
+     if (!productList.length) {
+     break;
+     }
+     prodAmounts[i] = productList.length;
+     prodAmounts.sort();
+     }
+     }*/
 
     function calculateBouquetSizes(newAmount) {
         var totalFlowerCount = $(".destination .product_item").length + newAmount;
