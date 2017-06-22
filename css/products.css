@@ -56,6 +56,7 @@ table {
     background: #fff;
     -webkit-border-radius: 8px;
     border-radius: 8px;
+    position: relative;
 }
 
 /*
@@ -151,6 +152,7 @@ div.products div.products {
 .ruble_sign {
     padding: 10px 5px 0 5px;
     height: 15px;
+    width: 12px;
 }
 
 .in-bouquet {
@@ -224,4 +226,8 @@ div.products div.products {
 
 .ui-spinner.ui-corner-all a {
     border: none;
+}
+
+.destination img {
+    position: absolute;
 }

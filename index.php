@@ -5,7 +5,7 @@ ini_set("display_errors", 1);
 
 require_once 'functions.php';
 
-$items = require 'product_list.php';
+$productItems = require 'product_list.php';
 
 ?>
 <!DOCTYPE html>
@@ -31,32 +31,34 @@ $items = require 'product_list.php';
     <div class="products">
         <ul class="source connectedSortable">
 
-            <?php foreach ($items as $o => $elem): ?>
+            <?php foreach ($productItems as $o => $elem): ?>
 
-                <li class="ui-state-default product" data-id="<?php echo sc($elem['id']) ?>">
+                <li class="ui-state-default product" data-id="<?php echo sc($elem['id']) ?>"
+                    data-image_top="<?php echo sc($elem['image_top']) ?>">
                     <div class="product_image" title="<?php echo sc($elem['name']) ?>"
-                         style="background-image: url('images/products/<?php echo sc($elem['image_top']) ?>')"></div>
+                         style="background-image: url('images/products/<?php echo sc($elem['image_preview']) ?>')"></div>
 
                     <table class="item-info">
                         <tr>
-                            <td><label for="product_amount_<?php echo $o ?>"
+                            <td><label for="product_amount_<?php echo sc($o) ?>"
                                        class="product_name"><?php echo sc($elem['name']) ?></label></td>
                         </tr>
                         <tr>
                             <td>
-                            <table class="product_price_block">
-                                <tr>
-                                    <td>
-                                        <div class="product_price"><?php echo sc($elem['price']) ?></div>
-                                    </td>
-                                    <td><img class="ruble_sign" src="images/ruble_sign_2.png" alt="ruble"></td>
-                                    <td><input id="product_amount_<?php echo $o ?>" class="product_amount" value="0"
-                                               maxlength="3"></td>
-                                    <td>
-                                        <div class="in-bouquet"></div>
-                                    </td>
-                                </tr>
-                            </table>
+                                <table class="product_price_block">
+                                    <tr>
+                                        <td>
+                                            <div class="product_price"><?php echo sc($elem['price']) ?></div>
+                                        </td>
+                                        <td><img class="ruble_sign" src="images/ruble_sign_2.png" alt="ruble"></td>
+                                        <td><input id="product_amount_<?php echo sc($o) ?>" class="product_amount"
+                                                   value="0"
+                                                   maxlength="3"></td>
+                                        <td>
+                                            <div class="in-bouquet"></div>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                     </table>
@@ -65,7 +67,7 @@ $items = require 'product_list.php';
             <?php endforeach; ?>
 
         </ul>
-        <ul class="destination connectedSortable"></ul>
+        <div class="destination connectedSortable"></div>
     </div>
 
 </div>
