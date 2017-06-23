@@ -150,9 +150,9 @@ div.products div.products {
 }
 
 .ruble_sign {
-    padding: 10px 5px 0 5px;
-    height: 15px;
-    width: 12px;
+    padding: 12px 5px 0 5px;
+    height: 13px;
+    width: 10px;
 }
 
 .in-bouquet {
@@ -230,4 +230,10 @@ div.products div.products {
 
 .destination img {
     position: absolute;
+}
+
+.ui-icon {
+    height: 0;
+    width: 12px;
+    cursor: pointer;
 }

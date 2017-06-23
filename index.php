@@ -31,7 +31,7 @@ $productItems = require 'product_list.php';
     <div class="products">
         <ul class="source connectedSortable">
 
-            <?php foreach ($productItems as $o => $elem): ?>
+            <?php foreach ($productItems as $elem): ?>
 
                 <li class="ui-state-default product" data-id="<?php echo sc($elem['id']) ?>"
                     data-image_top="<?php echo sc($elem['image_top']) ?>" data-price="<?php echo sc($elem['price']) ?>"
@@ -41,7 +41,7 @@ $productItems = require 'product_list.php';
 
                     <table class="item-info">
                         <tr>
-                            <td><label for="product_amount_<?php echo sc($o) ?>"
+                            <td><label for="product_amount_<?php echo sc($elem['id']) ?>"
                                        class="product_name"><?php echo sc($elem['name']) ?></label></td>
                         </tr>
                         <tr>
@@ -52,9 +52,9 @@ $productItems = require 'product_list.php';
                                             <div class="product_price"><?php echo sc($elem['price']) ?></div>
                                         </td>
                                         <td><img class="ruble_sign" src="images/ruble_sign_2.png" alt="ruble"></td>
-                                        <td><input id="product_amount_<?php echo sc($o) ?>" class="product_amount"
+                                        <td><input id="product_amount_<?php echo sc($elem['id']) ?>" class="product_amount"
                                                    value="0"
-                                                   maxlength="3" type="number"></td>
+                                                   maxlength="3"></td>
                                         <td>
                                             <div class="in-bouquet"></div>
                                         </td>

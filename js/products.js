@@ -40,37 +40,40 @@ jQuery(function ($) {
         if (diff > 0) {
             // add items
             for (var i = 0; i < diff; ++i) {
-                raiseFlower(id);
+                //raiseFlower(id);
+                updateBoquet();
             }
         } else if (diff < 0) {
             // remove items
             for (var i = 0; i < -diff; ++i) {
-                removeFlower(id);
+                //removeFlower(id);
+                updateBoquet();
             }
         }   // else no changes
     }
 
     function updateBoquet() {
+        var totalAmount = 0;
         var flowers = [];
         $(".source .product").each(function (index) {
             var info = {};
             info.image_top = $(this).data("image_top");
             info.amount = $(this).find(".product_amount").val();
+            totalAmount += info.amount;
             flowers[$(this).data("id")] = info;
         });
 
-        dimBoquet();
-        showFlowers(flowers);
+        /*$(".destination .product_item").fadeOut(200, function () {
+            drawBoquet(flowers);
+        });*/
+        drawBoquet(flowers, totalAmount);
     }
 
-    function dimBoquet() {
-        $(".destination .product_item").fadeOut(200);
-    }
-
-    function showFlowers(flowers) {
+    function drawBoquet(flowers, totalAmount) {
+        var sizes = calculateBouquetSizes(totalAmount);
         for (var fl in flowers) {
-            for (var i; i < flowers[fl].amount; ++i) {
-                var pos = getRandomPosition(radius);
+            for (var i = 0; i < flowers[fl].amount; ++i) {
+                var pos = getRandomPosition(sizes.bouquetDiameter);
                 //raiseFlower(pos.x, pos.y, 50, flowers[fl].image_top)
                 raiseFlower(pos.x, pos.y, 50, i)
             }
@@ -117,24 +120,24 @@ jQuery(function ($) {
         return sizes;
     }
 
-    function raiseFlower(x, y, width, id) {
-        var src = $(".product[data-id=" + id).data("image_top");
-        src = '../images/products/' + encodeURIComponent(src)
-        var s = "<img src='" + src + "' style='width:2px;opacity:0.1;left:" + x + "px;top:" + y + "px' class='product_item product_" + id + "'>";
-        $(".destination").append(s);
-        $(".destination img:last-child").animate({
-            width: width + "px",
-            opacity: 1
-        }, 400);
-        /*var fInterval = setInterval(function () {
-         if (s.width < 60)
-         //clearInterval(fInterval);
-         }, 100);*/
-    }
+    /*function raiseFlower(x, y, width, id) {
+     var src = $(".product[data-id=" + id).data("image_top");
+     src = '../images/products/' + encodeURIComponent(src)
+     var s = "<img src='" + src + "' style='width:2px;opacity:0.1;left:" + x + "px;top:" + y + "px' class='product_item product_" + id + "'>";
+     $(".destination").append(s);
+     $(".destination img:last-child").animate({
+     width: width + "px",
+     opacity: 1
+     }, 400);
+     /!*var fInterval = setInterval(function () {
+     if (s.width < 60)
+     //clearInterval(fInterval);
+     }, 100);*!/
+     }*/
 
-    function removeFlower(id) {
+    /*function removeFlower(id) {
 
-    }
+     }*/
 
     /*var animationTime = 3000;
      $(".product").click(function () {
