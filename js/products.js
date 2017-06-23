@@ -58,7 +58,7 @@ jQuery(function ($) {
         $(".source .product").each(function (index) {
             var info = {};
             info.image_top = $(this).data("image_top");
-            info.amount = $(this).find(".product_amount").val();
+            info.amount = parseInt($(this).find(".product_amount").val());
             totalAmount += info.amount;
             flowers[$(this).data("id")] = info;
         });
@@ -114,48 +114,24 @@ jQuery(function ($) {
         var sizes = {};
 
         sizes.bouquetDiameter = totalFlowerCount * Math.sqrt(totalFlowerCount);
-        sizes.maxFlowerDiameter = bouquetDiameter * 0.7;
-        sizes.minFlowerDiameter = maxFlowerDiameter * 0.6;
+        sizes.maxFlowerDiameter = sizes.bouquetDiameter * 0.7;
+        sizes.minFlowerDiameter = sizes.maxFlowerDiameter * 0.6;
 
         return sizes;
     }
 
-    /*function raiseFlower(x, y, width, id) {
-     var src = $(".product[data-id=" + id).data("image_top");
-     src = '../images/products/' + encodeURIComponent(src)
-     var s = "<img src='" + src + "' style='width:2px;opacity:0.1;left:" + x + "px;top:" + y + "px' class='product_item product_" + id + "'>";
-     $(".destination").append(s);
-     $(".destination img:last-child").animate({
-     width: width + "px",
-     opacity: 1
-     }, 400);
-     /!*var fInterval = setInterval(function () {
-     if (s.width < 60)
-     //clearInterval(fInterval);
-     }, 100);*!/
-     }*/
-
-    /*function removeFlower(id) {
-
-     }*/
-
-    /*var animationTime = 3000;
-     $(".product").click(function () {
-     $(".source").animate({
-     width: "6em"
-     }, animationTime, function () {
-     // Animation complete.
-     $('.product').off('click');
-     $(".source, .destination").sortable({
-     connectWith: ".connectedSortable"
-     }).disableSelection();
-     });
-     $(".destination").show().animate({
-     width: "17em"
-     }, animationTime);
-     $(".source li").animate({
-     "font-size": "50%"
-     }, animationTime);
-     $(".item-info").fadeOut(animationTime);
-     });*/
+    function raiseFlower(x, y, width, id) {
+        var src = $(".product[data-id='" + id + "'").data("image_top");
+        src = '../images/products/' + encodeURIComponent(src);
+        var s = "<img src='" + src + "' style='width:2px;opacity:0.1;left:" + x + "px;top:" + y + "px' class='product_item product_" + id + "'>";
+        $(".destination").append(s);
+        $(".destination img:last-child").animate({
+            width: width + "px",
+            opacity: 1
+        }, 400);
+        /*var fInterval = setInterval(function () {
+         if (s.width < 60)
+         //clearInterval(fInterval);
+         }, 100);*/
+    }
 });
