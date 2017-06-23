@@ -26,7 +26,6 @@ jQuery(function ($) {
         var itemId = elem.data("id");
         var spinnerSelector = "#product_amount_" + itemId;
         $(spinnerSelector).spinner("stepUp", 1);
-        //raiseFlower(itemId);
         spinOccured(itemId, $(spinnerSelector).val());
     });
 
@@ -40,7 +39,6 @@ jQuery(function ($) {
         if (diff > 0) {
             // add items
             for (var i = 0; i < diff; ++i) {
-                //raiseFlower(id);
                 updateBoquet();
             }
         } else if (diff < 0) {
@@ -63,19 +61,29 @@ jQuery(function ($) {
             flowers[$(this).data("id")] = info;
         });
 
-        /*$(".destination .product_item").fadeOut(200, function () {
-            drawBoquet(flowers);
-        });*/
-        drawBoquet(flowers, totalAmount);
+        var sel = $(".destination .product_item");
+        if (sel.length > 0) {
+            sel.fadeOut(200, function () {
+                $(this).remove();
+                console.log('POS-1');
+                if ($(".destination .product_item").length < 1) {
+                    drawBoquet(flowers, totalAmount);
+                }
+            });
+        } else {
+            console.log('POS-2');
+            drawBoquet(flowers, totalAmount);
+        }
     }
 
     function drawBoquet(flowers, totalAmount) {
+        console.log("totalAmount: " + totalAmount);
         var sizes = calculateBouquetSizes(totalAmount);
         for (var fl in flowers) {
             for (var i = 0; i < flowers[fl].amount; ++i) {
-                var pos = getRandomPosition(sizes.bouquetDiameter);
+                var pos = getRandomPosition(sizes.bouquetDiameter / 2);
                 //raiseFlower(pos.x, pos.y, 50, flowers[fl].image_top)
-                raiseFlower(pos.x, pos.y, 50, i)
+                raiseFlower(pos.x, pos.y, 50, fl)
             }
         }
     }
@@ -109,11 +117,11 @@ jQuery(function ($) {
 
     function calculateBouquetSizes(newAmount) {
         var totalFlowerCount = $(".destination .product_item").length + newAmount;
-        var maxBouqetDiameter = Math.max($(".destination").width(), $(".destination").height()) * 0.8;
+        var maxBouqetDiameter = Math.min($(".destination").width(), $(".destination").height()) * 0.8;
 
         var sizes = {};
 
-        sizes.bouquetDiameter = totalFlowerCount * Math.sqrt(totalFlowerCount);
+        sizes.bouquetDiameter = maxBouqetDiameter / Math.sqrt(totalFlowerCount);
         sizes.maxFlowerDiameter = sizes.bouquetDiameter * 0.7;
         sizes.minFlowerDiameter = sizes.maxFlowerDiameter * 0.6;
 
@@ -121,8 +129,11 @@ jQuery(function ($) {
     }
 
     function raiseFlower(x, y, width, id) {
+        console.log("X: " + x + "; Y: " + y + "; Width: " + width + "; id: " + id);
+        x = x + $(".destination").width() / 2;
+        y = y + $(".destination").height() / 2;
         var src = $(".product[data-id='" + id + "'").data("image_top");
-        src = '../images/products/' + encodeURIComponent(src);
+        src = 'images/products/' + encodeURIComponent(src);
         var s = "<img src='" + src + "' style='width:2px;opacity:0.1;left:" + x + "px;top:" + y + "px' class='product_item product_" + id + "'>";
         $(".destination").append(s);
         $(".destination img:last-child").animate({

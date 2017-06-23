@@ -52,9 +52,9 @@ $productItems = require 'product_list.php';
                                             <div class="product_price"><?php echo sc($elem['price']) ?></div>
                                         </td>
                                         <td><img class="ruble_sign" src="images/ruble_sign_2.png" alt="ruble"></td>
-                                        <td><input id="product_amount_<?php echo sc($elem['id']) ?>" class="product_amount"
-                                                   value="0"
-                                                   maxlength="3"></td>
+                                        <td><input id="product_amount_<?php echo sc($elem['id']) ?>"
+                                                   class="product_amount"
+                                                   value="0" maxlength="3"></td>
                                         <td>
                                             <div class="in-bouquet"></div>
                                         </td>
