@@ -171,5 +171,104 @@ jQuery(function ($) {
          }, 100);*/
     }
 
+    $("#custom_contact_close").click(function () {
+        $('#succes_popup').bPopup().close();
+    });
+
+    $("#custom_contact_form").submit(function (e) {
+        e.preventDefault();
+
+        $("#custom_contact_form .form-group").removeClass("has-error");
+        $("#custom_contact_form .help-block").hide();
+
+        var hasErrors = false;
+
+        var name = $.trim($("#custom_contact_name").val());
+        $("#custom_contact_name").val(name);
+        var phone = $.trim($("#custom_contact_phone").val());
+        $("#custom_contact_phone").val(phone);
+
+        if ($("#custom_contact_name").val().length == 0) {
+            $("#custom_contact_name").parent().addClass("has-error");
+            $("#custom_contact_name + .help-block").show();
+            hasErrors = true;
+        }
+        if ($("#custom_contact_phone").val().length == 0) {
+            $("#custom_contact_phone").parent().addClass("has-error");
+            $("#custom_contact_phone + .help-block").show();
+            hasErrors = true;
+        }
+
+        if (hasErrors) {
+            return false;
+        }
+
+        var flowers = [];
+
+        $(".source .product").each(function () {
+            var newItem = {};
+            if (newItem.number = $(this).find('.product_amount').val()) {
+                newItem.name = $(this).data('name');
+                newItem.price = $(this).data('price');
+                flowers.push(newItem);
+            }
+        });
+
+        var data = {
+            action: 'contact_request',
+            name: $("#custom_contact_name").val(),
+            phone: $("#custom_contact_phone").val(),
+            comment: $("#custom_contact_message").val(),
+            items: flowers
+        };
+
+        $.post('contactRequest.php', data, function (response) {
+            if (response) {
+                if (response == "0") {
+                    alert("Ошибка отправки заказа: попробуйте повторить попытку позже.");
+                } else {
+                    $('#contact_popup').bPopup().close();
+                    $('#succes_popup').bPopup({
+                        easing: 'easeOutBack',
+                        speed: 450,
+                        transition: 'slideDown'
+                    });
+                    $("#custom_contact_form").get(0).reset();
+                }
+            } else {
+                alert('Ошибка: сервер вернул пустой результат. Попробуйте отослать данные позже.');
+            }
+        }).fail(function (response) {
+            alert('Произошла внутренняя ошибка: ' + response.statusText + " : " + response.status);
+        });
+
+        return false;
+    });
+
+    function whetherFormProperlyFilled() {
+        var name = $("#custom_contact_name").val();
+        name = $.trim(name);
+        var phone = $("#custom_contact_phone").val();
+        phone = $.trim(phone);
+        $("#custom_contact_send").prop("disabled", !(name.length && phone.length));
+    }
+
+    $("#custom_contact_name").change(function () {
+        whetherFormProperlyFilled();
+    });
+    $("#custom_contact_phone").change(function () {
+        whetherFormProperlyFilled();
+    });
+
+    $("#custom_contact_name").keyup(function () {
+        whetherFormProperlyFilled();
+    });
+    $("#custom_contact_phone").keyup(function () {
+        whetherFormProperlyFilled();
+    });
+
+    whetherFormProperlyFilled();
+
     updateBoquet();
+
 });

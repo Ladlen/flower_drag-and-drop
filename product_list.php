@@ -1,7 +1,7 @@
 <?php
 
 define('BOUQUET_BOOKING_EMAIL', 'TwilightTower@mail.ru');
-define('BACKGROUND', 'images/vase.jpg');
+define('BACKGROUND', 'images/vase_small.jpg');
 //define('BACKGROUND', false);
 
 return [

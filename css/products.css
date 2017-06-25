@@ -245,7 +245,7 @@ div.products div.products {
     font-size: 2em;
 }
 
-#contact_popup {
+.contact_popup {
     display: none;
     background-color: #fff;
     border-radius: 10px 10px 10px 10px;
@@ -256,20 +256,20 @@ div.products div.products {
     padding: 25px;
 }
 
-#contact_popup label {
+.contact_popup label {
     color: #111;
 }
 
-#contact_popup input {
+.contact_popup input {
     font-size: 0.9em;
 }
 
-#contact_popup button {
+.contact_popup button {
     width: 100%;
     font-weight: bold;
 }
 
-#contact_popup span.b-close span {
+.contact_popup span.b-close span {
     border-radius: 7px 7px 7px 7px;
     box-shadow: none;
     font: bold 131% sans-serif;
@@ -285,6 +285,14 @@ div.products div.products {
     text-decoration: none;
 }
 
-#contact_popup span.b-close:hover span {
+.contact_popup span.b-close:hover span {
     background-color: #1e1e1e;
+}
+
+#succes_popup {
+    text-align: center;
+}
+
+#succes_popup button {
+    margin-top: 1em;
 }
