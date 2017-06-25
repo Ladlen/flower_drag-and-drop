@@ -124,14 +124,66 @@ jQuery(function ($) {
         return totalFlowerCount;
     }
 
+    function drawCircle(x0, y0, radius, width, height) {
+        var x = radius;
+        var y = 0;
+        var decisionOver2 = 1 - x;   // Decision criterion divided by 2 evaluated at x=r, y=0
+        var imageWidth = width;
+        var imageHeight = height;
+        //var context = canvas.getContext('2d');
+        //var imageData = context.getImageData(0, 0, imageWidth, imageHeight);
+        //var pixelData = imageData.data;
+        /*var makePixelIndexer = function (width) {
+         return function (i, j) {
+         var index = CHANNELS_PER_PIXEL * (j * width + i);
+         //index points to the Red channel of pixel
+         //at column i and row j calculated from top left
+         return index;
+         };
+         };
+         var pixelIndexer = makePixelIndexer(imageWidth);
+         var drawPixel = function (x, y) {
+         var idx = pixelIndexer(x,y);
+         pixelData[idx] = 255;	//red
+         pixelData[idx + 1] = 0;	//green
+         pixelData[idx + 2] = 255;//blue
+         pixelData[idx + 3] = 255;//alpha
+         };*/
+
+        while (x >= y) {
+            drawPixel(x + x0, y + y0);
+            drawPixel(y + x0, x + y0);
+            drawPixel(-x + x0, y + y0);
+            drawPixel(-y + x0, x + y0);
+            drawPixel(-x + x0, -y + y0);
+            drawPixel(-y + x0, -x + y0);
+            drawPixel(x + x0, -y + y0);
+            drawPixel(y + x0, -x + y0);
+            y++;
+            if (decisionOver2 <= 0) {
+                decisionOver2 += 2 * y + 1; // Change in decision criterion for y -> y+1
+            } else {
+                x--;
+                decisionOver2 += 2 * (y - x) + 1; // Change for y -> y+1, x -> x-1
+            }
+        }
+
+        //context.putImageData(imageData, 0, 0);
+    }
+
     function drawBoquet(flowers, totalAmount) {
         var elements = [];
         var flowersAmount = getTotalFlowersCount();
         var sizes = calculateBouquetSizes(flowersAmount);
 
+        var minWidth = 999999;
+
         for (var fl in flowers) {
             for (var i = 0; i < flowers[fl].amount; ++i) {
                 var width = Math.floor((Math.random() * (sizes.maxFlowerDiameter - sizes.minFlowerDiameter)) + sizes.minFlowerDiameter);
+                if (minWidth > width) {
+                    minWidth = width;
+                }
                 //var pos = getRandomPosition(sizes.bouquetDiameter / 2, width, flowersAmount);
                 elements.push({
                     //x: pos.x,
@@ -144,27 +196,63 @@ jQuery(function ($) {
             }
         }
 
-        var STEPS_PER_ROTATION = 7;
-        var increment = 5 * Math.PI / STEPS_PER_ROTATION;
-        var theta = increment;
-
         var centerX = $(".destination").width() / 2;
         var centerY = $(".destination").height() / 2;
 
+        var theta = 0;      // angle that will be increased each loop
+        var h = centerX;        // x coordinate of circle center
+        var k = centerY;        // y coordinate of circle center
+        var step = 120;      // amount to add to theta each time (degrees)
+        var r = minWidth / 3;
+
         elements = shuffle(elements);
-        for (var elem in elements) {
-            var newX = centerX + theta * Math.cos(theta);
-            var newY = centerY + theta * Math.sin(theta);
-            raiseFlower(newX, newY, elements[elem].width, elements[elem].id, flowersAmount);
-            theta = theta + increment;
+        var circles = flowersAmount / 10;
+        var circNumber = 1;
+        for (var i = 0; i < elements.length; ++i) {
+            var elem = elements[i];
+            if (circNumber == 0) {
+                raiseFlower(0, 0, elem.width, elem.id, flowersAmount);
+            } else {
+                if (theta > 360) {
+                    theta = 0;
+                    r += minWidth / 2;
+                    step /= 1.5;
+                }
+
+                var x = h + r * Math.cos(theta * Math.PI / 180);
+                var y = k + r * Math.sin(theta * Math.PI / 180);
+                //draw a line to x,y
+                theta += step;
+                raiseFlower(x, y, elem.width, elem.id, flowersAmount);
+
+            }
+            ++circNumber;
         }
+        // 1 - 1
+        // 2, 3 - 3
+        // 4, 5, 6, 7, 8
+
+        /*var STEPS_PER_ROTATION = flowersAmount / 10 + 3;
+         var increment = width / 10 * Math.PI / STEPS_PER_ROTATION;
+         var theta = increment;
+
+         var centerX = $(".destination").width() / 2;
+         var centerY = $(".destination").height() / 2;
+
+         elements = shuffle(elements);
+         for (var elem in elements) {
+         var newX = centerX + theta * Math.cos(theta);
+         var newY = centerY + theta * Math.sin(theta);
+         raiseFlower(newX, newY, elements[elem].width, elements[elem].id, flowersAmount);
+         theta = theta + increment;
+         }*/
 
         /*while (theta < 40 * Math.PI) {
-            var newX = centerX + theta * Math.cos(theta);
-            var newY = centerY + theta * Math.sin(theta);
-            raiseFlower(elements[elem].x, elements[elem].y, elements[elem].width, elements[elem].id);
-            theta = theta + increment;
-        }*/
+         var newX = centerX + theta * Math.cos(theta);
+         var newY = centerY + theta * Math.sin(theta);
+         raiseFlower(elements[elem].x, elements[elem].y, elements[elem].width, elements[elem].id);
+         theta = theta + increment;
+         }*/
 
     }
 
@@ -175,38 +263,38 @@ jQuery(function ($) {
          var pt_y = Math.sqrt(pt_radius_sq) * Math.sin(pt_angle);*/
 
         /*var halfX = $(".destination").width() / 2;
-        var halfY = $(".destination").height() / 2;
+         var halfY = $(".destination").height() / 2;
 
-        var halfObject = width / 2;
+         var halfObject = width / 2;
 
-        console.log("width: " + width + "; flowersAmount: " + flowersAmount + "; halfX: " + halfX + "; halfY: " + halfY);
+         console.log("width: " + width + "; flowersAmount: " + flowersAmount + "; halfX: " + halfX + "; halfY: " + halfY);
 
-        if (flowersAmount > 30) {
-            flowersAmount = 30;
-        }
+         if (flowersAmount > 30) {
+         flowersAmount = 30;
+         }
 
-        var offsetX = (halfX - halfObject) * (flowersAmount / 30 * Math.random());
-        var offsetY = (halfY - halfObject) * (flowersAmount / 30 * Math.random());
+         var offsetX = (halfX - halfObject) * (flowersAmount / 30 * Math.random());
+         var offsetY = (halfY - halfObject) * (flowersAmount / 30 * Math.random());
 
-        console.log("offsetX: " + offsetX + "; offsetY: " + offsetY);
+         console.log("offsetX: " + offsetX + "; offsetY: " + offsetY);
 
-        if (Math.random() > .5) {
-            pt_x = halfX - halfObject + offsetX;
-        } else {
-            pt_x = halfX - halfObject - offsetX;
-        }
-        if (Math.random() > .5) {
-            pt_y = halfY - halfObject + offsetY;
-        } else {
-            pt_y = halfY - halfObject - offsetY;
-        }*/
+         if (Math.random() > .5) {
+         pt_x = halfX - halfObject + offsetX;
+         } else {
+         pt_x = halfX - halfObject - offsetX;
+         }
+         if (Math.random() > .5) {
+         pt_y = halfY - halfObject + offsetY;
+         } else {
+         pt_y = halfY - halfObject - offsetY;
+         }*/
 
         //var pt_x = ($(".destination").width() / 2) + Math.random() * flowersAmount * width;
         //var pt_y = ($(".destination").height() / 2) + Math.random() * flowersAmount * width;
 
         /*if (flowersAmount > 50) {
-            flowersAmount = 50;
-        }*/
+         flowersAmount = 50;
+         }*/
 
         var pt_angle = Math.random() * 2 * Math.PI;
         var pt_radius_sq = Math.random() * width / (0.1 / flowersAmount);
@@ -216,15 +304,15 @@ jQuery(function ($) {
         var pt_y = Math.sqrt(pt_radius_sq) * Math.sin(pt_angle);
 
         /*if (pt_x > $(".destination").width() - width) {
-            pt_x = $(".destination").width() - width;
-        } else if (pt_x < 0) {
-            pt_x = 0;
-        }
-        if (pt_y > $(".destination").height() - width) {
-            pt_y = $(".destination").height() - width;
-        } else if (pt_y < 0) {
-            pt_y = 0;
-        }*/
+         pt_x = $(".destination").width() - width;
+         } else if (pt_x < 0) {
+         pt_x = 0;
+         }
+         if (pt_y > $(".destination").height() - width) {
+         pt_y = $(".destination").height() - width;
+         } else if (pt_y < 0) {
+         pt_y = 0;
+         }*/
 
         return {x: pt_x, y: pt_y};
     }
@@ -250,14 +338,14 @@ jQuery(function ($) {
     function calculateBouquetSizes(newAmount) {
         //var totalFlowerCount = $(".destination .product_item").length + newAmount;
         var totalFlowerCount = getTotalFlowersCount();
-        var maxBouqetDiameter = Math.min($(".destination").width(), $(".destination").height()) * 0.9;
+        var maxBouqetDiameter = Math.min($(".destination").width(), $(".destination").height()) * 0.85;
 
         var sizes = {};
 
         //sizes.bouquetDiameter = maxBouqetDiameter / Math.sqrt(totalFlowerCount);
         sizes.bouquetDiameter = maxBouqetDiameter;
         // 1 => 1, 2 => 0.9, 3 => 0.8,
-        sizes.maxFlowerDiameter = sizes.bouquetDiameter / Math.sqrt(totalFlowerCount / 3);
+        sizes.maxFlowerDiameter = sizes.bouquetDiameter / Math.sqrt(totalFlowerCount / 1.5);
         sizes.minFlowerDiameter = sizes.maxFlowerDiameter * 0.8;
 
         return sizes;
@@ -269,7 +357,7 @@ jQuery(function ($) {
         var halfWidth = width / 2;
 
         /*x = x + $(".destination").width() / 2;
-        y = y + $(".destination").height() / 2;*/
+         y = y + $(".destination").height() / 2;*/
 
         if (x > $(".destination").width() - halfWidth) {
             x = $(".destination").width() - halfWidth;
@@ -284,7 +372,7 @@ jQuery(function ($) {
 
         var src = $(".product[data-id='" + id + "'").data("image_top");
         src = 'images/products/' + encodeURIComponent(src);
-        var zIndex = totalAmount - id;
+        var zIndex = totalAmount - id + 2;
         var s = "<img src='" + src + "' style='width:2px;opacity:0.1;left:" + x + "px;top:" + y + "px;z-index:" + zIndex + ";' class='product_item product_" + id + "'>";
         $(".destination").append(s);
         $(".destination img:last-child").animate({
