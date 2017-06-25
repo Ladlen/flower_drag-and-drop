@@ -92,30 +92,30 @@ $productItems = require 'product_list.php';
 </div>
 
 <script>
-    (function($) {
+    (function ($) {
         var e = '<div id="contact_popup">\
         <span class="b-close"><span>X</span></span>\
         <form id="custom_contact_form">\
             <div class="form-group">\
                 <label for="custom_contact_name">Имя:</label>\
-                <input type="email" class="form-control" id="custom_contact_name" name="contact_email" placeholder="Имя">\
+                <input type="text" class="form-control" id="custom_contact_name" name="contact_email" placeholder="Имя">\
                 <small class="help-block" style="display:none">Пожалуйста введите имя</small>\
             </div>\
             <div class="form-group">\
                 <label for="custom_contact_phone">Телефон:</label>\
-                <input type="text" class="form-control" id="custom_contact_phone" name="contact_phone" placeholder="Телефон">\
+                <input type="phone" class="form-control" id="custom_contact_phone" name="contact_phone" placeholder="Телефон">\
                 <small class="help-block" style="display:none">Пожалуйста введите телефон</small>\
             </div>\
             <div class="form-group">\
                 <label for="custom_contact_message">Комментарий:</label>\
                     <textarea class="form-control" id="custom_contact_message" rows="4"></textarea>\
             </div>\
-            <button type="submit" class="btn btn-primary" id="custom_contact_send" name="contact_send" value="contact_send">Отправить</button>\
+            <button type="submit" class="btn btn-primary" id="custom_contact_send" name="contact_send" value="contact_send" disabled="disabled">Отправить</button>\
         </form>\
     </div>';
         $('body').append(e);
 
-        $("#custom_contact_form").submit(function(e) {
+        $("#custom_contact_form").submit(function (e) {
             e.preventDefault();
 
             $("#custom_contact_form .form-group").removeClass("has-error");
@@ -133,7 +133,7 @@ $productItems = require 'product_list.php';
                 $("#custom_contact_name + .help-block").show();
                 hasErrors = true;
             }
-            if ($("#custom_contact_phone").val().length < 0) {
+            if ($("#custom_contact_phone").val().length == 0) {
                 $("#custom_contact_phone").parent().addClass("has-error");
                 $("#custom_contact_phone + .help-block").show();
                 hasErrors = true;
@@ -143,18 +143,24 @@ $productItems = require 'product_list.php';
                 return false;
             }
 
+            var flowers = [];
+
             var data = {
                 action: 'contact_request',
                 name: $("#custom_contact_name").val(),
-                phone: $("#custom_contact_phone").val()
+                phone: $("#custom_contact_phone").val(),
+                comment: $("#custom_contact_message").val(),
+                items: flowers
             };
 
-            // 'ajaxurl' не определена во фронте, поэтому мы добавили её аналог с помощью wp_localize_script()
             $.post('contactRequest.php', data, function (response) {
                 if (response) {
-                    alert(response);
-                    $('#contact_popup').bPopup().close();
-                    $("#custom_contact_form").get(0).reset();
+                    if (respons == "0") {
+                        alert("Ошибка отправки заказа: попробуйте повторить попытку позже.");
+                    } else {
+                        $('#contact_popup').bPopup().close();
+                        $("#custom_contact_form").get(0).reset();
+                    }
                 } else {
                     alert('Ошибка: сервер вернул пустой результат. Попробуйте отослать данные позже.');
                 }
@@ -165,15 +171,29 @@ $productItems = require 'product_list.php';
             return false;
         });
 
-        /*$('[href="#show_contact_popup"]').click(function (e) {
-            e.preventDefault();
-            $('#contact_popup').bPopup({
-                easing: 'easeOutBack',
-                speed: 450,
-                transition: 'slideDown'
-            });
-            return false;
-        });*/
+        function whetherFormProperlyFilled() {
+            var name = $("#custom_contact_name").val();
+            name = $.trim(name);
+            var phone = $("#custom_contact_phone").val();
+            phone = $.trim(phone);
+            $("#custom_contact_send").prop("disabled", !(name.length && phone.length));
+        }
+
+        $("#custom_contact_name").change(function () {
+            whetherFormProperlyFilled();
+        });
+        $("#custom_contact_phone").change(function () {
+            whetherFormProperlyFilled();
+        });
+
+        $("#custom_contact_name").keyup(function () {
+            whetherFormProperlyFilled();
+        });
+        $("#custom_contact_phone").keyup(function () {
+            whetherFormProperlyFilled();
+        });
+
+        whetherFormProperlyFilled();
 
     })(jQuery);
 

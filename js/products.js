@@ -31,7 +31,6 @@ jQuery(function ($) {
 
     $(".btn_order").click(function () {
         if (parseFloat($(".total_amount").html()) > 0) {
-            console.log("bPopup +++++");
             $('#contact_popup').bPopup({
                 easing: 'easeOutBack',
                 speed: 450,
