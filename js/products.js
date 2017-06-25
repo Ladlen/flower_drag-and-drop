@@ -89,7 +89,7 @@ jQuery(function ($) {
 
         $(".total_amount").html(totalPrice.toFixed(2));
 
-        $(".btn_order").attr("disabled", totalPrice);
+        $(".btn_order").prop("disabled", !totalPrice);
 
         /*if (totalPrice) {
          $('#contact_popup').bPopup({

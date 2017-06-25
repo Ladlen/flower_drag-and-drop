@@ -20,7 +20,8 @@ $productItems = require 'product_list.php';
 
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
-    <script src="js/jquery-mousewheel-3.1.13/jquery.mousewheel.min.js"></script>
+    <script type='text/javascript' src="js/jquery-mousewheel-3.1.13/jquery.mousewheel.min.js"></script>
+    <script type='text/javascript' src='js/jquery.bpopup.min.js?ver=0.11.0'></script>
 
     <link rel="stylesheet" href="css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 
@@ -92,7 +93,7 @@ $productItems = require 'product_list.php';
 
 <script>
     (function($) {
-        var e = '<div id="contact_popup">\
+        var e = '<div id="contact_popup" style="display:none">\
         <span class="b-close"><span>X</span></span>\
         <form id="custom_contact_form">\
             <div class="form-group">\
