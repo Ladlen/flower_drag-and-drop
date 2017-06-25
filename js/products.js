@@ -128,13 +128,14 @@ jQuery(function ($) {
         var elements = [];
         var flowersAmount = getTotalFlowersCount();
         var sizes = calculateBouquetSizes(flowersAmount);
+
         for (var fl in flowers) {
             for (var i = 0; i < flowers[fl].amount; ++i) {
                 var width = Math.floor((Math.random() * (sizes.maxFlowerDiameter - sizes.minFlowerDiameter)) + sizes.minFlowerDiameter);
-                var pos = getRandomPosition(sizes.bouquetDiameter / 2, width, flowersAmount);
+                //var pos = getRandomPosition(sizes.bouquetDiameter / 2, width, flowersAmount);
                 elements.push({
-                    x: pos.x,
-                    y: pos.y,
+                    //x: pos.x,
+                    //y: pos.y,
                     width: width,
                     id: fl,
                 });
@@ -143,10 +144,28 @@ jQuery(function ($) {
             }
         }
 
+        var STEPS_PER_ROTATION = 7;
+        var increment = 5 * Math.PI / STEPS_PER_ROTATION;
+        var theta = increment;
+
+        var centerX = $(".destination").width() / 2;
+        var centerY = $(".destination").height() / 2;
+
         elements = shuffle(elements);
         for (var elem in elements) {
-            raiseFlower(elements[elem].x, elements[elem].y, elements[elem].width, elements[elem].id);
+            var newX = centerX + theta * Math.cos(theta);
+            var newY = centerY + theta * Math.sin(theta);
+            raiseFlower(newX, newY, elements[elem].width, elements[elem].id, flowersAmount);
+            theta = theta + increment;
         }
+
+        /*while (theta < 40 * Math.PI) {
+            var newX = centerX + theta * Math.cos(theta);
+            var newY = centerY + theta * Math.sin(theta);
+            raiseFlower(elements[elem].x, elements[elem].y, elements[elem].width, elements[elem].id);
+            theta = theta + increment;
+        }*/
+
     }
 
     function getRandomPosition(radius, width, flowersAmount) {
@@ -190,7 +209,7 @@ jQuery(function ($) {
         }*/
 
         var pt_angle = Math.random() * 2 * Math.PI;
-        var pt_radius_sq = Math.random() * width / (1 / flowersAmount);
+        var pt_radius_sq = Math.random() * width / (0.1 / flowersAmount);
         //var pt_x = Math.sqrt(pt_radius_sq) * Math.cos(pt_angle);
         //var pt_y = Math.sqrt(pt_radius_sq) * Math.sin(pt_angle);
         var pt_x = Math.sqrt(pt_radius_sq) * Math.cos(pt_angle);
@@ -237,19 +256,20 @@ jQuery(function ($) {
 
         //sizes.bouquetDiameter = maxBouqetDiameter / Math.sqrt(totalFlowerCount);
         sizes.bouquetDiameter = maxBouqetDiameter;
-        sizes.maxFlowerDiameter = sizes.bouquetDiameter * 0.7;
+        // 1 => 1, 2 => 0.9, 3 => 0.8,
+        sizes.maxFlowerDiameter = sizes.bouquetDiameter / Math.sqrt(totalFlowerCount / 3);
         sizes.minFlowerDiameter = sizes.maxFlowerDiameter * 0.8;
 
         return sizes;
     }
 
-    function raiseFlower(x, y, width, id) {
+    function raiseFlower(x, y, width, id, totalAmount) {
         console.log("X: " + x + "; Y: " + y + "; Width: " + width + "; id: " + id);
 
         var halfWidth = width / 2;
 
-        x = x + $(".destination").width() / 2;
-        y = y + $(".destination").height() / 2;
+        /*x = x + $(".destination").width() / 2;
+        y = y + $(".destination").height() / 2;*/
 
         if (x > $(".destination").width() - halfWidth) {
             x = $(".destination").width() - halfWidth;
@@ -264,7 +284,8 @@ jQuery(function ($) {
 
         var src = $(".product[data-id='" + id + "'").data("image_top");
         src = 'images/products/' + encodeURIComponent(src);
-        var s = "<img src='" + src + "' style='width:2px;opacity:0.1;left:" + x + "px;top:" + y + "px' class='product_item product_" + id + "'>";
+        var zIndex = totalAmount - id;
+        var s = "<img src='" + src + "' style='width:2px;opacity:0.1;left:" + x + "px;top:" + y + "px;z-index:" + zIndex + ";' class='product_item product_" + id + "'>";
         $(".destination").append(s);
         $(".destination img:last-child").animate({
             width: width + "px",
