@@ -96,15 +96,46 @@ jQuery(function ($) {
          }*/
     }
 
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
+
+
     function drawBoquet(flowers, totalAmount) {
+        var elements = [];
         var sizes = calculateBouquetSizes(totalAmount);
         for (var fl in flowers) {
             for (var i = 0; i < flowers[fl].amount; ++i) {
                 var pos = getRandomPosition(sizes.bouquetDiameter / 2);
-                //raiseFlower(pos.x, pos.y, 50, flowers[fl].image_top)
-                raiseFlower(pos.x, pos.y,
-                    Math.floor((Math.random() * (sizes.maxFlowerDiameter - sizes.minFlowerDiameter)) + sizes.minFlowerDiameter), fl);
+                elements.push({
+                    x: pos.x,
+                    y: pos.y,
+                    width: Math.floor((Math.random() * (sizes.maxFlowerDiameter - sizes.minFlowerDiameter)) + sizes.minFlowerDiameter),
+                    id: fl
+                });
+                /*raiseFlower(pos.x, pos.y,
+                 Math.floor((Math.random() * (sizes.maxFlowerDiameter - sizes.minFlowerDiameter)) + sizes.minFlowerDiameter), fl);*/
             }
+        }
+
+        elements = shuffle(elements);
+        for (var elem in elements) {
+            raiseFlower(elements[elem].x, elements[elem].y, elements[elem].width, elements[elem].id);
         }
     }
 
@@ -149,7 +180,7 @@ jQuery(function ($) {
     }
 
     function raiseFlower(x, y, width, id) {
-        //console.log("X: " + x + "; Y: " + y + "; Width: " + width + "; id: " + id);
+        console.log("X: " + x + "; Y: " + y + "; Width: " + width + "; id: " + id);
         x = x + $(".destination").width() / 2;
         y = y + $(".destination").height() / 2;
         var src = $(".product[data-id='" + id + "'").data("image_top");
@@ -158,6 +189,8 @@ jQuery(function ($) {
         $(".destination").append(s);
         $(".destination img:last-child").animate({
             width: width + "px",
+            left: (x - width / 2) + "px",
+            top: (y - width / 2) + "px",
             opacity: 1
         }, 400);
         /*var fInterval = setInterval(function () {
