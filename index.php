@@ -21,7 +21,18 @@ $productItems = require 'product_list.php';
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
     <script src="js/jquery-mousewheel-3.1.13/jquery.mousewheel.min.js"></script>
+
+    <link rel="stylesheet" href="css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+
     <script type="text/javascript" src="js/products.js"></script>
+
+    <?php if (BACKGROUND): ?>
+        <style>
+            .destination {
+                background: url(images/vase.jpg) no-repeat center center;
+            }
+        </style>
+    <?php endif ?>
 
 </head>
 <body>
@@ -69,6 +80,11 @@ $productItems = require 'product_list.php';
 
         </ul>
         <div class="destination connectedSortable"></div>
+
+    </div>
+
+    <div class="product_info">
+        <span class="total_amount">0</span> руб. <button class="btn btn-default btn_order">Заказать</button>
     </div>
 
 </div>

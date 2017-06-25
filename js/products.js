@@ -51,6 +51,7 @@ jQuery(function ($) {
     }
 
     function updateBoquet() {
+        var totalPrice = 0;
         var totalAmount = 0;
         var flowers = [];
         $(".source .product").each(function (index) {
@@ -59,6 +60,7 @@ jQuery(function ($) {
             info.amount = parseInt($(this).find(".product_amount").val());
             totalAmount += info.amount;
             flowers[$(this).data("id")] = info;
+            totalPrice += info.amount * parseFloat($(this).data("price"));
         });
 
         var sel = $(".destination .product_item");
@@ -74,6 +76,8 @@ jQuery(function ($) {
             console.log('POS-2');
             drawBoquet(flowers, totalAmount);
         }
+
+        $(".total_amount").html(totalPrice.toFixed(2));
     }
 
     function drawBoquet(flowers, totalAmount) {
@@ -83,7 +87,8 @@ jQuery(function ($) {
             for (var i = 0; i < flowers[fl].amount; ++i) {
                 var pos = getRandomPosition(sizes.bouquetDiameter / 2);
                 //raiseFlower(pos.x, pos.y, 50, flowers[fl].image_top)
-                raiseFlower(pos.x, pos.y, 50, fl)
+                raiseFlower(pos.x, pos.y,
+                    Math.floor((Math.random() * (sizes.maxFlowerDiameter - sizes.minFlowerDiameter)) + sizes.minFlowerDiameter), fl);
             }
         }
     }
@@ -145,4 +150,6 @@ jQuery(function ($) {
          //clearInterval(fInterval);
          }, 100);*/
     }
+
+    updateBoquet();
 });
