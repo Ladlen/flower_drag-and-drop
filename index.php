@@ -93,7 +93,7 @@ $productItems = require 'product_list.php';
 
 <script>
     (function($) {
-        var e = '<div id="contact_popup" style="display:none">\
+        var e = '<div id="contact_popup">\
         <span class="b-close"><span>X</span></span>\
         <form id="custom_contact_form">\
             <div class="form-group">\

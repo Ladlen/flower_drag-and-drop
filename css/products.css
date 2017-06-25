@@ -244,3 +244,47 @@ div.products div.products {
     padding-top: 1em;
     font-size: 2em;
 }
+
+#contact_popup {
+    display: none;
+    background-color: #fff;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 0 25px 5px #999;
+    color: #111;
+    max-width: 450px;
+    width: 100%;
+    padding: 25px;
+}
+
+#contact_popup label {
+    color: #111;
+}
+
+#contact_popup input {
+    font-size: 0.9em;
+}
+
+#contact_popup button {
+    width: 100%;
+    font-weight: bold;
+}
+
+#contact_popup span.b-close span {
+    border-radius: 7px 7px 7px 7px;
+    box-shadow: none;
+    font: bold 131% sans-serif;
+    padding: 0 6px 2px;
+    position: absolute;
+    right: -7px;
+    top: -7px;
+    background-color: #2b91af;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
+
+#contact_popup span.b-close:hover span {
+    background-color: #1e1e1e;
+}
