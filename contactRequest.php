@@ -12,7 +12,6 @@ if (!empty($_POST['action']) && $_POST['action'] == 'contact_request') {
     if ($_POST['comment']) {
         $body .= "Комментарий: $_POST[comment]\n";
     }
-    //file_put_contents('t.txt', $_POST['comment']);
 
     $body .= "\n";
 

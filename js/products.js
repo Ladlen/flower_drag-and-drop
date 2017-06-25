@@ -4,11 +4,9 @@ jQuery(function ($) {
     var spinner = $(".product_amount").spinner({
         min: 0, max: maxItems,
         stop: function (event, ui) {
-            //console.log("CURR: " + $(this).val() + "; NEXT: " + ui.value);
             spinOccured($(this).parents(".product").data("id"), $(this).val());
         },
         change: function (event, ui) {
-            //console.log("CURR: " + $(this).val() + "; NEXT: " + ui.value);
             var value = parseInt($(this).val());
             if (value > maxItems) {
                 $(this).val(maxItems);
@@ -77,13 +75,11 @@ jQuery(function ($) {
         if (sel.length > 0) {
             sel.fadeOut(200, function () {
                 $(this).remove();
-                console.log('POS-1');
                 if ($(".destination .product_item").length < 1) {
                     drawBoquet(flowers, totalAmount);
                 }
             });
         } else {
-            console.log('POS-2');
             drawBoquet(flowers, totalAmount);
         }
 
@@ -101,7 +97,6 @@ jQuery(function ($) {
     }
 
     function drawBoquet(flowers, totalAmount) {
-        console.log("totalAmount: " + totalAmount);
         var sizes = calculateBouquetSizes(totalAmount);
         for (var fl in flowers) {
             for (var i = 0; i < flowers[fl].amount; ++i) {
@@ -154,7 +149,7 @@ jQuery(function ($) {
     }
 
     function raiseFlower(x, y, width, id) {
-        console.log("X: " + x + "; Y: " + y + "; Width: " + width + "; id: " + id);
+        //console.log("X: " + x + "; Y: " + y + "; Width: " + width + "; id: " + id);
         x = x + $(".destination").width() / 2;
         y = y + $(".destination").height() / 2;
         var src = $(".product[data-id='" + id + "'").data("image_top");
@@ -207,7 +202,7 @@ jQuery(function ($) {
 
         $(".source .product").each(function () {
             var newItem = {};
-            if (newItem.number = $(this).find('.product_amount').val()) {
+            if (newItem.number = parseInt($(this).find('.product_amount').val())) {
                 newItem.name = $(this).data('name');
                 newItem.price = $(this).data('price');
                 flowers.push(newItem);
