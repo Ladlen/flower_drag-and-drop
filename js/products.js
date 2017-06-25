@@ -29,6 +29,16 @@ jQuery(function ($) {
         spinOccured(itemId, $(spinnerSelector).val());
     });
 
+    $(".btn_order").click(function () {
+        if (parseFloat($(".total_amount").val()) > 0) {
+            $('#contact_popup').bPopup({
+                easing: 'easeOutBack',
+                speed: 450,
+                transition: 'slideDown'
+            });
+        }
+    });
+
     /**
      * @param id    - идентификатор цветка
      * @param amount - количеcтво добавляемых цветков
@@ -78,6 +88,16 @@ jQuery(function ($) {
         }
 
         $(".total_amount").html(totalPrice.toFixed(2));
+
+        $(".btn_order").attr("disabled", totalPrice);
+
+        /*if (totalPrice) {
+         $('#contact_popup').bPopup({
+         easing: 'easeOutBack',
+         speed: 450,
+         transition: 'slideDown'
+         });
+         }*/
     }
 
     function drawBoquet(flowers, totalAmount) {

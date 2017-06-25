@@ -84,10 +84,99 @@ $productItems = require 'product_list.php';
     </div>
 
     <div class="product_info">
-        <span class="total_amount">0</span> руб. <button class="btn btn-default btn_order">Заказать</button>
+        <span class="total_amount">0</span> руб.
+        <button class="btn btn-default btn_order" disabled="disabled">Заказать</button>
     </div>
 
 </div>
+
+<script>
+    (function($) {
+        var e = '<div id="contact_popup">\
+        <span class="b-close"><span>X</span></span>\
+        <form id="custom_contact_form">\
+            <div class="form-group">\
+                <label for="custom_contact_name">Имя:</label>\
+                <input type="email" class="form-control" id="custom_contact_name" name="contact_email" placeholder="Имя">\
+                <small class="help-block" style="display:none">Пожалуйста введите имя</small>\
+            </div>\
+            <div class="form-group">\
+                <label for="custom_contact_phone">Телефон:</label>\
+                <input type="text" class="form-control" id="custom_contact_phone" name="contact_phone" placeholder="Телефон">\
+                <small class="help-block" style="display:none">Пожалуйста введите телефон</small>\
+            </div>\
+            <div class="form-group">\
+                <label for="custom_contact_message">Комментарий:</label>\
+                    <textarea class="form-control" id="custom_contact_message" rows="4"></textarea>\
+            </div>\
+            <button type="submit" class="btn btn-primary" id="custom_contact_send" name="contact_send" value="contact_send">Отправить</button>\
+        </form>\
+    </div>';
+        $('body').append(e);
+
+        $("#custom_contact_form").submit(function(e) {
+            e.preventDefault();
+
+            $("#custom_contact_form .form-group").removeClass("has-error");
+            $("#custom_contact_form .help-block").hide();
+
+            var hasErrors = false;
+
+            var name = $.trim($("#custom_contact_name").val());
+            $("#custom_contact_name").val(name);
+            var phone = $.trim($("#custom_contact_phone").val());
+            $("#custom_contact_phone").val(phone);
+
+            if ($("#custom_contact_name").val().length == 0) {
+                $("#custom_contact_name").parent().addClass("has-error");
+                $("#custom_contact_name + .help-block").show();
+                hasErrors = true;
+            }
+            if ($("#custom_contact_phone").val().length < 0) {
+                $("#custom_contact_phone").parent().addClass("has-error");
+                $("#custom_contact_phone + .help-block").show();
+                hasErrors = true;
+            }
+
+            if (hasErrors) {
+                return false;
+            }
+
+            var data = {
+                action: 'contact_request',
+                name: $("#custom_contact_name").val(),
+                phone: $("#custom_contact_phone").val()
+            };
+
+            // 'ajaxurl' не определена во фронте, поэтому мы добавили её аналог с помощью wp_localize_script()
+            $.post('contactRequest.php', data, function (response) {
+                if (response) {
+                    alert(response);
+                    $('#contact_popup').bPopup().close();
+                    $("#custom_contact_form").get(0).reset();
+                } else {
+                    alert('Ошибка: сервер вернул пустой результат. Попробуйте отослать данные позже.');
+                }
+            }).fail(function (response) {
+                alert('Произошла внутренняя ошибка: ' + response.statusText + " : " + response.status);
+            });
+
+            return false;
+        });
+
+        /*$('[href="#show_contact_popup"]').click(function (e) {
+            e.preventDefault();
+            $('#contact_popup').bPopup({
+                easing: 'easeOutBack',
+                speed: 450,
+                transition: 'slideDown'
+            });
+            return false;
+        });*/
+
+    })(jQuery);
+
+</script>
 
 </body>
 </html>
