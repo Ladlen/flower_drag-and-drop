@@ -230,7 +230,7 @@ jQuery(function ($) {
     }
 
     var mobileElements = {
-        "narrowWindow": {
+        "wideWindow": {
             ".products .source": {
                 "width": "100%"
             },
@@ -243,18 +243,18 @@ jQuery(function ($) {
             ".products .destination_wrapper": {
                 "width": "0px",
                 "padding-left": "100%"
+            }
+        },
+        "narrowWindow": {
+            ".products .source": {
+                "width": "230px"
             },
-            "wideWindow": {
-                ".products .source": {
-                    "width": "230px"
-                },
-                ".products .destination": {
-                    "width": "100%"
-                },
-                ".products .destination_wrapper": {
-                    "width": "100%",
-                    "padding-left": "240px"
-                }
+            ".products .destination": {
+                "width": "100%"
+            },
+            ".products .destination_wrapper": {
+                "width": "100%",
+                "padding-left": "240px"
             }
         }
     };
