@@ -8,6 +8,8 @@ jQuery(function ($) {
         smallWindow = true;
     }
 
+    smallWindow = true;
+
     $(".products").css('display', 'inline-block');
 
     var maxItems = 120;
@@ -17,17 +19,17 @@ jQuery(function ($) {
         stop: function (event, ui) {
             spinOccured($(this).parents(".product").data("id"), $(this).val());
         }/*,
-        change: function (event, ui) {
-            var value = parseInt($(this).val()) || 0;
-            if (value > maxItems) {
-                $(this).val(maxItems);
-            } else if (value < 0) {
-                $(this).val(0);
-            } else if (value != $(this).val()) {
-                $(this).val(value);
-            }
-            spinOccured($(this).parents(".product").data("id"), $(this).val());
-        }*/
+         change: function (event, ui) {
+         var value = parseInt($(this).val()) || 0;
+         if (value > maxItems) {
+         $(this).val(maxItems);
+         } else if (value < 0) {
+         $(this).val(0);
+         } else if (value != $(this).val()) {
+         $(this).val(value);
+         }
+         spinOccured($(this).parents(".product").data("id"), $(this).val());
+         }*/
     });
 
     $(".in-bouquet").click(function () {
@@ -137,28 +139,10 @@ jQuery(function ($) {
         return totalFlowerCount;
     }
 
-    function drawBoquet(flowers, totalAmount) {
+    function drawBoquetAfterAnimation(flowers) {
         var elements = [];
         var flowersAmount = getTotalFlowersCount();
         var sizes = calculateBouquetSizes(flowersAmount);
-
-        if (smallWindow) {
-            if (flowers.length < 1) {
-                $(".products .source").animate({
-                    width: "310px"
-                }, 1000);
-                $(".products .destination").animate({
-                    width: "0"
-                }, 1000);
-            } else {
-                $(".products .source").animate({
-                    width: "100px"
-                }, 1000);
-                $(".products .destination").animate({
-                    width: "310px"
-                }, 1000);
-            }
-        }
 
         var minWidth = 999999;
 
@@ -243,7 +227,118 @@ jQuery(function ($) {
          raiseFlower(elements[elem].x, elements[elem].y, elements[elem].width, elements[elem].id);
          theta = theta + increment;
          }*/
+    }
 
+    var mobileElements = {
+        "narrowWindow": {
+            ".products .source": {
+                "width": "100%"
+            },
+            ".products .source_wrapper": {
+                "width": "100%"
+            },
+            ".products .destination": {
+                "width": "0px"
+            },
+            ".products .destination_wrapper": {
+                "width": "0px",
+                "padding-left": "100%"
+            },
+            "wideWindow": {
+                ".products .source": {
+                    "width": "230px"
+                },
+                ".products .destination": {
+                    "width": "100%"
+                },
+                ".products .destination_wrapper": {
+                    "width": "100%",
+                    "padding-left": "240px"
+                }
+            }
+        }
+    };
+
+    function fitElementsA(wide) {
+        if (wide) {
+            for (var selector in mobileElements.wideWindow) {
+                for (var styleName in mobileElements.wideWindow[selector]) {
+                    $(selector).css(styleName, mobileElements.wideWindow[selector][styleName]);
+                }
+            }
+        } else {
+            for (var selector in mobileElements.narrowWindow) {
+                for (var styleName in mobileElements.narrowWindow[selector]) {
+                    $(selector).css(styleName, mobileElements.narrowWindow[selector][styleName]);
+                }
+            }
+        }
+    }
+
+    function fitElements() {
+        if (smallWindow) {
+            if (getTotalFlowersCount() < 1) {
+                fitElementsA(true);
+            } else {
+                fitElementsA(false);
+            }
+        } else {
+            fitElementsA(true);
+        }
+    }
+
+    fitElements();
+
+    function drawBoquet(flowers, totalAmount) {
+        if (smallWindow) {
+            var elementStack = [];
+            if (getTotalFlowersCount() < 1) {
+                for (var selector in mobileElements.wideWindow) {
+                    elementStack.push($(selector).animate(mobileElements.wideWindow[selector]));
+                }
+                $.when(elementStack).done(function () {
+                    drawBoquetAfterAnimation(flowers);
+                });
+                /*$.when(
+                    $(".products .source").animate({
+                        width: "100%"
+                    }, 1000),
+                    $(".products .source_wrapper").animate({
+                        width: "100%"
+                    }, 1000),
+                    $(".products .destination").animate({
+                        width: "0px"
+                    }, 1000),
+                    $(".products .destination_wrapper").animate({
+                        width: "0px",
+                        "padding-left": "100%"
+                    }, 1000)).done(function () {
+                        drawBoquetAfterAnimation(flowers);
+                    });*/
+            } else {
+                for (var selector in mobileElements.narrowWindow) {
+                    elementStack.push($(selector).animate(mobileElements.narrowWindow[selector]));
+                }
+                $.when(elementStack).done(function () {
+                    drawBoquetAfterAnimation(flowers);
+                });
+                /*$.when(
+                    $(".products .source").animate({
+                        width: "230px"
+                    }, 1000),
+                    $(".products .destination").animate({
+                        width: "100%"
+                    }, 1000),
+                    $(".products .destination_wrapper").animate({
+                        width: "100%",
+                        "padding-left": "240px"
+                    }, 1000)).done(function () {
+                        drawBoquetAfterAnimation(flowers);
+                    });*/
+            }
+        } else {
+            drawBoquetAfterAnimation(flowers);
+        }
     }
 
     function getRandomPosition(radius, width, flowersAmount) {
