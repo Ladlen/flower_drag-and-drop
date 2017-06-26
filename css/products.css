@@ -1,10 +1,14 @@
 * {
     outline: none;
     color: #666666;
+    margin: 0;
+    padding: 0;
+    /*line-height: 0;*/
 }
 
 html, body {
     width: 100%;
+    height: 100%;
 }
 
 table {
@@ -14,18 +18,23 @@ table {
 
 .wrapper {
     width: 100%;
-    margin: 3em auto;
+    margin: 0 auto;
     font-size: 12px;
     font-family: Arial, sans-serif;
     color: #787878;
+    text-align: center;
+    height: 100%;
+    line-height: 0;
 }
 
-.wrapper {
-    text-align: center;
+.wrapper .product {
+    line-height: 1em;
 }
 
 .wrapper .products {
     text-align: left;
+    height: 100%;
+    padding-bottom: 5em;
 }
 
 .products {
@@ -34,7 +43,7 @@ table {
 
 .products .source {
     width: 310px;
-    min-height: 400px;
+    /*min-height: 400px;*/
     margin: 0 19px 0 0;
     padding: 18px;
     float: left;
@@ -42,13 +51,15 @@ table {
     background: #fff;
     -webkit-border-radius: 8px;
     border-radius: 8px;
-    height: 400px;
+    /*height: 400px;*/
+    height: 100%;
     overflow-y: scroll;
 }
 
 .products .destination {
     width: 300px;
-    min-height: 400px;
+    /*min-height: 400px;*/
+    height: 100%;
     margin: 0;
     /*padding: 18px;*/
     float: left;
@@ -242,8 +253,22 @@ div.products div.products {
 
 .product_info {
     text-align: center;
-    padding-top: 1em;
+    /*padding-top: 1em;*/
     font-size: 2em;
+    position: absolute;
+    bottom: .6em;
+    padding-left: 1em;
+}
+
+.product_info button {
+    color: #111;
+    padding-left: 2em;
+    padding-right: 2em;
+    font-weight: bold;
+}
+
+.product_info button:hover {
+    color: black;
 }
 
 .contact_popup {
@@ -297,3 +322,7 @@ div.products div.products {
 #succes_popup button {
     margin-top: 1em;
 }
+
+/*@media (max-width: 767px) {
+
+}*/

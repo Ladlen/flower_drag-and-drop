@@ -82,12 +82,17 @@ $productItems = require 'product_list.php';
         </ul>
         <div class="destination connectedSortable"></div>
 
+        <div class="product_info">
+            <span class="total_amount">0</span> руб.
+            <button class="btn btn-default btn_order" disabled="disabled">Заказать</button>
+        </div>
+
     </div>
 
-    <div class="product_info">
+    <!--<div class="product_info">
         <span class="total_amount">0</span> руб.
         <button class="btn btn-default btn_order" disabled="disabled">Заказать</button>
-    </div>
+    </div>-->
 
 </div>
 

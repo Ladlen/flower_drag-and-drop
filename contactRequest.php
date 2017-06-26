@@ -10,7 +10,7 @@ if (!empty($_POST['action']) && $_POST['action'] == 'contact_request') {
         . "Телефон: $_POST[phone]\n";
 
     if ($_POST['comment']) {
-        $body .= "Комментарий: $_POST[comment]\n";
+        $body .= "Комментарий:\n$_POST[comment]\n";
     }
 
     $body .= "\n";
