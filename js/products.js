@@ -1,13 +1,23 @@
 jQuery(function ($) {
-    var maxItems = 500;
+
+    var smallWindow = false;
+
+    if ($(window).width() < 300) {
+        $(".products .destination").hide();
+        smallWindow = true;
+    }
+
+    $(".products").css('display', 'inline-block');
+
+    var maxItems = 120;
 
     var spinner = $(".product_amount").spinner({
         min: 0, max: maxItems,
         stop: function (event, ui) {
             spinOccured($(this).parents(".product").data("id"), $(this).val());
-        },
+        }/*,
         change: function (event, ui) {
-            var value = parseInt($(this).val());
+            var value = parseInt($(this).val()) || 0;
             if (value > maxItems) {
                 $(this).val(maxItems);
             } else if (value < 0) {
@@ -16,7 +26,7 @@ jQuery(function ($) {
                 $(this).val(value);
             }
             spinOccured($(this).parents(".product").data("id"), $(this).val());
-        }
+        }*/
     });
 
     $(".in-bouquet").click(function () {
@@ -28,7 +38,7 @@ jQuery(function ($) {
     });
 
     $(".btn_order").click(function () {
-        if (parseFloat($(".total_amount").html()) > 0) {
+        if ((parseFloat($(".total_amount").html()) || 0) > 0) {
             $('#contact_popup').bPopup({
                 easing: 'easeOutBack',
                 speed: 450,
@@ -42,6 +52,8 @@ jQuery(function ($) {
      * @param amount - количеcтво добавляемых цветков
      */
     function spinOccured(id, amount) {
+        updateBoquet();
+        return;
         var diff = amount - $(".destination img.product_" + id).length;
 
         if (diff > 0) {
@@ -56,6 +68,10 @@ jQuery(function ($) {
                 updateBoquet();
             }
         }   // else no changes
+
+        if (smallWindow) {
+
+        }
     }
 
     function updateBoquet() {
@@ -65,10 +81,10 @@ jQuery(function ($) {
         $(".source .product").each(function (index) {
             var info = {};
             info.image_top = $(this).data("image_top");
-            info.amount = parseInt($(this).find(".product_amount").val());
+            info.amount = parseInt($(this).find(".product_amount").val()) || 0;
             totalAmount += info.amount;
             flowers[$(this).data("id")] = info;
-            totalPrice += info.amount * parseFloat($(this).data("price"));
+            totalPrice += info.amount * (parseFloat($(this).data("price")) || 0);
         });
 
         var sel = $(".destination .product_item");
@@ -118,7 +134,7 @@ jQuery(function ($) {
     function getTotalFlowersCount() {
         var totalFlowerCount = 0;
         $(".products .product_amount").each(function () {
-            totalFlowerCount += parseInt($(this).val());
+            totalFlowerCount += (parseInt($(this).val()) || 0);
         });
         console.log("totalFlowerCount: " + totalFlowerCount);
         return totalFlowerCount;
@@ -385,7 +401,7 @@ jQuery(function ($) {
 
         $(".source .product").each(function () {
             var newItem = {};
-            if (newItem.number = parseInt($(this).find('.product_amount').val())) {
+            if (newItem.number = parseInt($(this).find('.product_amount').val()) || 0) {
                 newItem.name = $(this).data('name');
                 newItem.price = $(this).data('price');
                 flowers.push(newItem);

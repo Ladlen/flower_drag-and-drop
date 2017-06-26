@@ -117,7 +117,7 @@ div.products div.products {
     /*cursor: pointer;*/
     border: 1px solid #eee;
     width: 100%;
-    min-height: 20em;
+    /*min-height: 20em;*/
     list-style-type: none;
     margin: 0;
     padding: 5px 0 0 0;
@@ -326,3 +326,7 @@ div.products div.products {
 /*@media (max-width: 767px) {
 
 }*/
+
+.products {
+    display: none;
+}
