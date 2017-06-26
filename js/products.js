@@ -2,13 +2,14 @@ jQuery(function ($) {
 
     var smallWindow = false;
 
-    if ($(window).width() < 300) {
+    //if ($(window).width() < 600) {
+    if (1) {
         console.log("WIDTH: " + $(window).width());
-        $(".products .destination").hide();
+        //$(".products .destination").css("min-width: auto").hide();
+        $(".products .destination").css("min-width: auto");
+        $(".products .source").css("padding", "10px");
         smallWindow = true;
     }
-
-    smallWindow = true;
 
     $(".products").css('display', 'inline-block');
 
@@ -37,7 +38,7 @@ jQuery(function ($) {
         var itemId = elem.data("id");
         var spinnerSelector = "#product_amount_" + itemId;
         $(spinnerSelector).spinner("stepUp", 1);
-        spinOccured(itemId, $(spinnerSelector).val());
+        //spinOccured(itemId, $(spinnerSelector).val());
     });
 
     $(".btn_order").click(function () {
@@ -243,18 +244,52 @@ jQuery(function ($) {
             ".products .destination_wrapper": {
                 "width": "0px",
                 "padding-left": "100%"
+            }, /*
+             ".products .product_name": {
+             "width": "auto",
+             "height": "auto",
+             },
+             ".products .product_price": {
+             "width": "auto",
+             "height": "auto",
+             }*/
+            ".products .product_hid_wrapper": {
+                "display": "block"
+            },
+            ".products .in-bouquet": {
+                "left": "auto"
+            },
+            ".products .product": {
+                "width": "254px"
             }
         },
         "narrowWindow": {
             ".products .source": {
-                "width": "230px"
+                "width": "130px"
             },
             ".products .destination": {
                 "width": "100%"
             },
             ".products .destination_wrapper": {
                 "width": "100%",
-                "padding-left": "240px"
+                "padding-left": "140px"
+            }, /*
+             ".products .product_name": {
+             "width": "0px",
+             "height": "0px",
+             },
+             ".products .product_price": {
+             "width": "0px",
+             "height": "0px",
+             }*/
+            ".products .product_hid_wrapper": {
+                "display": "none"
+            },
+            ".products .in-bouquet": {
+                "left": "46px"
+            },
+            ".products .product": {
+                "width": "95px"
             }
         }
     };
@@ -282,9 +317,10 @@ jQuery(function ($) {
             } else {
                 fitElementsA(false);
             }
-        } else {
-            fitElementsA(true);
         }
+        /* else {
+         fitElementsA(false);
+         }*/
     }
 
     fitElements();
@@ -294,27 +330,27 @@ jQuery(function ($) {
             var elementStack = [];
             if (getTotalFlowersCount() < 1) {
                 for (var selector in mobileElements.wideWindow) {
-                    elementStack.push($(selector).animate(mobileElements.wideWindow[selector]));
+                    elementStack.push($(selector).animate(mobileElements.wideWindow[selector]), 800);
                 }
                 $.when(elementStack).done(function () {
                     drawBoquetAfterAnimation(flowers);
                 });
                 /*$.when(
-                    $(".products .source").animate({
-                        width: "100%"
-                    }, 1000),
-                    $(".products .source_wrapper").animate({
-                        width: "100%"
-                    }, 1000),
-                    $(".products .destination").animate({
-                        width: "0px"
-                    }, 1000),
-                    $(".products .destination_wrapper").animate({
-                        width: "0px",
-                        "padding-left": "100%"
-                    }, 1000)).done(function () {
-                        drawBoquetAfterAnimation(flowers);
-                    });*/
+                 $(".products .source").animate({
+                 width: "100%"
+                 }, 1000),
+                 $(".products .source_wrapper").animate({
+                 width: "100%"
+                 }, 1000),
+                 $(".products .destination").animate({
+                 width: "0px"
+                 }, 1000),
+                 $(".products .destination_wrapper").animate({
+                 width: "0px",
+                 "padding-left": "100%"
+                 }, 1000)).done(function () {
+                 drawBoquetAfterAnimation(flowers);
+                 });*/
             } else {
                 for (var selector in mobileElements.narrowWindow) {
                     elementStack.push($(selector).animate(mobileElements.narrowWindow[selector]));
@@ -323,18 +359,18 @@ jQuery(function ($) {
                     drawBoquetAfterAnimation(flowers);
                 });
                 /*$.when(
-                    $(".products .source").animate({
-                        width: "230px"
-                    }, 1000),
-                    $(".products .destination").animate({
-                        width: "100%"
-                    }, 1000),
-                    $(".products .destination_wrapper").animate({
-                        width: "100%",
-                        "padding-left": "240px"
-                    }, 1000)).done(function () {
-                        drawBoquetAfterAnimation(flowers);
-                    });*/
+                 $(".products .source").animate({
+                 width: "230px"
+                 }, 1000),
+                 $(".products .destination").animate({
+                 width: "100%"
+                 }, 1000),
+                 $(".products .destination_wrapper").animate({
+                 width: "100%",
+                 "padding-left": "240px"
+                 }, 1000)).done(function () {
+                 drawBoquetAfterAnimation(flowers);
+                 });*/
             }
         } else {
             drawBoquetAfterAnimation(flowers);

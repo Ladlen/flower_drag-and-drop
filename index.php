@@ -57,7 +57,7 @@ $productItems = require 'product_list.php';
                                  style="background-image: url('images/products/<?php echo sc($elem['image_preview']) ?>')"></div>
 
                             <table class="item-info">
-                                <tr>
+                                <tr class="product_hid_wrapper">
                                     <td><label for="product_amount_<?php echo sc($elem['id']) ?>"
                                                class="product_name"><?php echo sc($elem['name']) ?></label></td>
                                 </tr>
@@ -65,11 +65,11 @@ $productItems = require 'product_list.php';
                                     <td>
                                         <table class="product_price_block">
                                             <tr>
-                                                <td>
+                                                <td class="product_hid_wrapper">
                                                     <div class="product_price"><?php echo sc($elem['price']) ?></div>
                                                 </td>
-                                                <td><img class="ruble_sign" src="images/ruble_sign_2.png" alt="ruble"></td>
-                                                <td><input id="product_amount_<?php echo sc($elem['id']) ?>"
+                                                <td class="product_hid_wrapper"><img class="ruble_sign" src="images/ruble_sign_2.png" alt="ruble"></td>
+                                                <td class="product_hid_wrapper"><input id="product_amount_<?php echo sc($elem['id']) ?>"
                                                            class="product_amount"
                                                            value="0" maxlength="3"></td>
                                                 <td>
