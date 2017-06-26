@@ -124,53 +124,6 @@ jQuery(function ($) {
         return totalFlowerCount;
     }
 
-    function drawCircle(x0, y0, radius, width, height) {
-        var x = radius;
-        var y = 0;
-        var decisionOver2 = 1 - x;   // Decision criterion divided by 2 evaluated at x=r, y=0
-        var imageWidth = width;
-        var imageHeight = height;
-        //var context = canvas.getContext('2d');
-        //var imageData = context.getImageData(0, 0, imageWidth, imageHeight);
-        //var pixelData = imageData.data;
-        /*var makePixelIndexer = function (width) {
-         return function (i, j) {
-         var index = CHANNELS_PER_PIXEL * (j * width + i);
-         //index points to the Red channel of pixel
-         //at column i and row j calculated from top left
-         return index;
-         };
-         };
-         var pixelIndexer = makePixelIndexer(imageWidth);
-         var drawPixel = function (x, y) {
-         var idx = pixelIndexer(x,y);
-         pixelData[idx] = 255;	//red
-         pixelData[idx + 1] = 0;	//green
-         pixelData[idx + 2] = 255;//blue
-         pixelData[idx + 3] = 255;//alpha
-         };*/
-
-        while (x >= y) {
-            drawPixel(x + x0, y + y0);
-            drawPixel(y + x0, x + y0);
-            drawPixel(-x + x0, y + y0);
-            drawPixel(-y + x0, x + y0);
-            drawPixel(-x + x0, -y + y0);
-            drawPixel(-y + x0, -x + y0);
-            drawPixel(x + x0, -y + y0);
-            drawPixel(y + x0, -x + y0);
-            y++;
-            if (decisionOver2 <= 0) {
-                decisionOver2 += 2 * y + 1; // Change in decision criterion for y -> y+1
-            } else {
-                x--;
-                decisionOver2 += 2 * (y - x) + 1; // Change for y -> y+1, x -> x-1
-            }
-        }
-
-        //context.putImageData(imageData, 0, 0);
-    }
-
     function drawBoquet(flowers, totalAmount) {
         var elements = [];
         var flowersAmount = getTotalFlowersCount();
@@ -200,9 +153,9 @@ jQuery(function ($) {
         var centerY = $(".destination").height() / 2;
 
         var theta = 0;      // angle that will be increased each loop
-        var h = centerX;        // x coordinate of circle center
-        var k = centerY;        // y coordinate of circle center
-        var step = 120;      // amount to add to theta each time (degrees)
+        //var h = centerX;        // x coordinate of circle center
+        //var k = centerY;        // y coordinate of circle center
+        var step = 72;      // amount to add to theta each time (degrees)
         var r = minWidth / 3;
 
         elements = shuffle(elements);
@@ -210,27 +163,24 @@ jQuery(function ($) {
         var circNumber = 1;
         for (var i = 0; i < elements.length; ++i) {
             var elem = elements[i];
-            if (circNumber == 0) {
-                raiseFlower(0, 0, elem.width, elem.id, flowersAmount);
+            if (circNumber == 1) {
+                raiseFlower(centerX, centerY, elem.width, elem.id, flowersAmount, i);
             } else {
                 if (theta > 360) {
-                    theta = 0;
+                    theta = Math.random() * 30;
                     r += minWidth / 2;
-                    step /= 1.5;
+                    step /= 1.4;
                 }
 
-                var x = h + r * Math.cos(theta * Math.PI / 180);
-                var y = k + r * Math.sin(theta * Math.PI / 180);
+                var x = centerX + r * Math.cos(theta * Math.PI / 180);
+                var y = centerY + r * Math.sin(theta * Math.PI / 180);
                 //draw a line to x,y
                 theta += step;
-                raiseFlower(x, y, elem.width, elem.id, flowersAmount);
+                raiseFlower(x, y, elem.width, elem.id, flowersAmount, i);
 
             }
             ++circNumber;
         }
-        // 1 - 1
-        // 2, 3 - 3
-        // 4, 5, 6, 7, 8
 
         /*var STEPS_PER_ROTATION = flowersAmount / 10 + 3;
          var increment = width / 10 * Math.PI / STEPS_PER_ROTATION;
@@ -345,13 +295,16 @@ jQuery(function ($) {
         //sizes.bouquetDiameter = maxBouqetDiameter / Math.sqrt(totalFlowerCount);
         sizes.bouquetDiameter = maxBouqetDiameter;
         // 1 => 1, 2 => 0.9, 3 => 0.8,
-        sizes.maxFlowerDiameter = sizes.bouquetDiameter / Math.sqrt(totalFlowerCount / 1.5);
+        sizes.maxFlowerDiameter = sizes.bouquetDiameter / Math.sqrt(totalFlowerCount / 2);
+        if (sizes.maxFlowerDiameter > maxBouqetDiameter) {
+            sizes.maxFlowerDiameter = maxBouqetDiameter;
+        }
         sizes.minFlowerDiameter = sizes.maxFlowerDiameter * 0.8;
 
         return sizes;
     }
 
-    function raiseFlower(x, y, width, id, totalAmount) {
+    function raiseFlower(x, y, width, id, totalAmount, order) {
         console.log("X: " + x + "; Y: " + y + "; Width: " + width + "; id: " + id);
 
         var halfWidth = width / 2;
@@ -372,7 +325,7 @@ jQuery(function ($) {
 
         var src = $(".product[data-id='" + id + "'").data("image_top");
         src = 'images/products/' + encodeURIComponent(src);
-        var zIndex = totalAmount - id + 2;
+        var zIndex = totalAmount - order + 2;
         var s = "<img src='" + src + "' style='width:2px;opacity:0.1;left:" + x + "px;top:" + y + "px;z-index:" + zIndex + ";' class='product_item product_" + id + "'>";
         $(".destination").append(s);
         $(".destination img:last-child").animate({
