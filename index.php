@@ -41,46 +41,98 @@ $productItems = require 'product_list.php';
 <div class="wrapper">
 
     <div class="products">
-        <ul class="source connectedSortable">
 
-            <?php foreach ($productItems as $elem): ?>
+        <div class="destination_wrapper">
+            <div class="destination connectedSortable"></div>
+            <div class="source_wrapper">
+                <ul class="source connectedSortable">
 
-                <li class="ui-state-default product" data-id="<?php echo sc($elem['id']) ?>"
-                    data-image_top="<?php echo sc($elem['image_top']) ?>" data-price="<?php echo sc($elem['price']) ?>"
-                    data-name="<?php echo sc($elem['name']) ?>">
-                    <div class="product_image" title="<?php echo sc($elem['name']) ?>"
-                         style="background-image: url('images/products/<?php echo sc($elem['image_preview']) ?>')"></div>
+                    <?php foreach ($productItems as $elem): ?>
 
-                    <table class="item-info">
-                        <tr>
-                            <td><label for="product_amount_<?php echo sc($elem['id']) ?>"
-                                       class="product_name"><?php echo sc($elem['name']) ?></label></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <table class="product_price_block">
-                                    <tr>
-                                        <td>
-                                            <div class="product_price"><?php echo sc($elem['price']) ?></div>
-                                        </td>
-                                        <td><img class="ruble_sign" src="images/ruble_sign_2.png" alt="ruble"></td>
-                                        <td><input id="product_amount_<?php echo sc($elem['id']) ?>"
-                                                   class="product_amount"
-                                                   value="0" maxlength="3"></td>
-                                        <td>
-                                            <div class="in-bouquet"></div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                </li>
+                        <li class="ui-state-default product" data-id="<?php echo sc($elem['id']) ?>"
+                            data-image_top="<?php echo sc($elem['image_top']) ?>"
+                            data-price="<?php echo sc($elem['price']) ?>"
+                            data-name="<?php echo sc($elem['name']) ?>">
+                            <div class="product_image" title="<?php echo sc($elem['name']) ?>"
+                                 style="background-image: url('images/products/<?php echo sc($elem['image_preview']) ?>')"></div>
 
-            <?php endforeach; ?>
+                            <table class="item-info">
+                                <tr>
+                                    <td><label for="product_amount_<?php echo sc($elem['id']) ?>"
+                                               class="product_name"><?php echo sc($elem['name']) ?></label></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table class="product_price_block">
+                                            <tr>
+                                                <td>
+                                                    <div class="product_price"><?php echo sc($elem['price']) ?></div>
+                                                </td>
+                                                <td><img class="ruble_sign" src="images/ruble_sign_2.png" alt="ruble"></td>
+                                                <td><input id="product_amount_<?php echo sc($elem['id']) ?>"
+                                                           class="product_amount"
+                                                           value="0" maxlength="3"></td>
+                                                <td>
+                                                    <div class="in-bouquet"></div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </li>
 
-        </ul>
-        <div class="destination connectedSortable"></div>
+                    <?php endforeach; ?>
+
+                </ul>
+            </div>
+        </div>
+
+        <!--<div class="source_wrapper">
+            <ul class="source connectedSortable">
+
+                <?php /*foreach ($productItems as $elem): */?>
+
+                    <li class="ui-state-default product" data-id="<?php /*echo sc($elem['id']) */?>"
+                        data-image_top="<?php /*echo sc($elem['image_top']) */?>"
+                        data-price="<?php /*echo sc($elem['price']) */?>"
+                        data-name="<?php /*echo sc($elem['name']) */?>">
+                        <div class="product_image" title="<?php /*echo sc($elem['name']) */?>"
+                             style="background-image: url('images/products/<?php /*echo sc($elem['image_preview']) */?>')"></div>
+
+                        <table class="item-info">
+                            <tr>
+                                <td><label for="product_amount_<?php /*echo sc($elem['id']) */?>"
+                                           class="product_name"><?php /*echo sc($elem['name']) */?></label></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table class="product_price_block">
+                                        <tr>
+                                            <td>
+                                                <div class="product_price"><?php /*echo sc($elem['price']) */?></div>
+                                            </td>
+                                            <td><img class="ruble_sign" src="images/ruble_sign_2.png" alt="ruble"></td>
+                                            <td><input id="product_amount_<?php /*echo sc($elem['id']) */?>"
+                                                       class="product_amount"
+                                                       value="0" maxlength="3"></td>
+                                            <td>
+                                                <div class="in-bouquet"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
+
+                <?php /*endforeach; */?>
+
+            </ul>
+        </div>-->
+        <!--<div class="destination_wrapper">
+            <div class="destination connectedSortable"></div>
+        </div>-->
 
         <div class="product_info">
             <span class="total_amount">0</span> руб.
@@ -98,6 +150,7 @@ $productItems = require 'product_list.php';
 
 <div id="contact_popup" class="contact_popup">
     <span class="b-close"><span>X</span></span>
+
     <form id="custom_contact_form">
         <div class="form-group">
             <label for="custom_contact_name">Имя:</label>
@@ -106,14 +159,17 @@ $productItems = require 'product_list.php';
         </div>
         <div class="form-group">
             <label for="custom_contact_phone">Телефон:</label>
-            <input type="phone" class="form-control" id="custom_contact_phone" name="contact_phone" placeholder="Телефон">
+            <input type="tel" class="form-control" id="custom_contact_phone" name="contact_phone"
+                   placeholder="Телефон">
             <small class="help-block" style="display:none">Пожалуйста введите телефон</small>
         </div>
         <div class="form-group">
             <label for="custom_contact_message">Комментарий:</label>
             <textarea class="form-control" id="custom_contact_message" rows="4"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary" id="custom_contact_send" name="contact_send" value="contact_send" disabled="disabled">Отправить</button>
+        <button type="submit" class="btn btn-primary" id="custom_contact_send" name="contact_send" value="contact_send"
+                disabled="disabled">Отправить
+        </button>
     </form>
 </div>
 

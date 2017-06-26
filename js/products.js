@@ -3,6 +3,7 @@ jQuery(function ($) {
     var smallWindow = false;
 
     if ($(window).width() < 300) {
+        console.log("WIDTH: " + $(window).width());
         $(".products .destination").hide();
         smallWindow = true;
     }
@@ -68,10 +69,6 @@ jQuery(function ($) {
                 updateBoquet();
             }
         }   // else no changes
-
-        if (smallWindow) {
-
-        }
     }
 
     function updateBoquet() {
@@ -144,6 +141,24 @@ jQuery(function ($) {
         var elements = [];
         var flowersAmount = getTotalFlowersCount();
         var sizes = calculateBouquetSizes(flowersAmount);
+
+        if (smallWindow) {
+            if (flowers.length < 1) {
+                $(".products .source").animate({
+                    width: "310px"
+                }, 1000);
+                $(".products .destination").animate({
+                    width: "0"
+                }, 1000);
+            } else {
+                $(".products .source").animate({
+                    width: "100px"
+                }, 1000);
+                $(".products .destination").animate({
+                    width: "310px"
+                }, 1000);
+            }
+        }
 
         var minWidth = 999999;
 
