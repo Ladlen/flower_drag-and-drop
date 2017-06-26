@@ -57,8 +57,8 @@ $productItems = require 'product_list.php';
                                  style="background-image: url('images/products/<?php echo sc($elem['image_preview']) ?>')"></div>
 
                             <table class="item-info">
-                                <tr class="product_hid_wrapper">
-                                    <td><label for="product_amount_<?php echo sc($elem['id']) ?>"
+                                <tr>
+                                    <td class="product_hid_wrapper"><label for="product_amount_<?php echo sc($elem['id']) ?>"
                                                class="product_name"><?php echo sc($elem['name']) ?></label></td>
                                 </tr>
                                 <tr>

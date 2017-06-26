@@ -254,7 +254,7 @@ jQuery(function ($) {
              "height": "auto",
              }*/
             ".products .product_hid_wrapper": {
-                "display": "block"
+                "display": "table-cell"
             },
             ".products .in-bouquet": {
                 "left": "auto"
