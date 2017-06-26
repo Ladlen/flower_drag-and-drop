@@ -6,7 +6,7 @@ jQuery(function ($) {
     if (1) {
         console.log("WIDTH: " + $(window).width());
         //$(".products .destination").css("min-width: auto").hide();
-        $(".products .destination").css("min-width: auto");
+        $(".products .destination").css("min-width", "auto");
         $(".products .source").css("padding", "10px");
         smallWindow = true;
     }

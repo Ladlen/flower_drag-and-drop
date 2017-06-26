@@ -72,7 +72,7 @@ table {
     border-radius: 8px;
     position: relative;
     overflow: hidden;
-    min-width: 100px;
+    min-width: 40px;
 }
 
 .products .destination_wrapper {
@@ -194,11 +194,11 @@ div.products div.products {
 }
 
 .in-bouquet {
-    width: 41px;
-    height: 25px;
+    width: 43px;
+    height: 27px;
     padding: 0;
     display: block;
-    background: url('../images/in-bouquet.png') 0 0 no-repeat;
+    background: url('../images/in-bouquet_stroke.png') 0 0 no-repeat;
     position: absolute;
     right: 8px;
     bottom: 10px;
