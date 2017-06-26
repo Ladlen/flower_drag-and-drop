@@ -161,6 +161,7 @@ jQuery(function ($) {
         elements = shuffle(elements);
         var circles = flowersAmount / 10;
         var circNumber = 1;
+        var lastCircle = false;
         for (var i = 0; i < elements.length; ++i) {
             var elem = elements[i];
             if (circNumber == 1) {
@@ -170,6 +171,9 @@ jQuery(function ($) {
                     theta = Math.random() * 30;
                     r += minWidth / 2;
                     step /= 1.4;
+                    if (lastCircle) {
+                        break;
+                    }
                 }
 
                 var x = centerX + r * Math.cos(theta * Math.PI / 180);
@@ -177,6 +181,11 @@ jQuery(function ($) {
                 //draw a line to x,y
                 theta += step;
                 raiseFlower(x, y, elem.width, elem.id, flowersAmount, i);
+
+                if (i == elements.length - 1 && theta < 360 && !lastCircle) {
+                    lastCircle = true;
+                    i = 0;
+                }
 
             }
             ++circNumber;
