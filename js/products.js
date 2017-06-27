@@ -2,12 +2,20 @@ jQuery(function ($) {
 
     var smallWindow = false;
 
-    //if ($(window).width() < 600) {
-    if (1) {
-        console.log("WIDTH: " + $(window).width());
+    if ($(window).width() < 600) {
+        //console.log("WIDTH: " + $(window).width());
         //$(".products .destination").css("min-width: auto").hide();
         $(".products .destination").css("min-width", "auto");
+        $(".products .destination").css("-webkit-border-top-left-radius", 0);
+        $(".products .destination").css("-webkit-border-bottom-left-radius", 0);
+        $(".products .destination").css("border-top-left-radius", 0);
+        $(".products .destination").css("border-bottom-left-radius", 0);
         $(".products .source").css("padding", "10px");
+        $(".products .source").css("-webkit-border-top-right-radius", 0);
+        $(".products .source").css("-webkit-border-bottom-right-radius", 0);
+        $(".products .source").css("border-top-right-radius", 0);
+        $(".products .source").css("border-bottom-right-radius", 0);
+        $(".products").css("width", "100%");
         smallWindow = true;
     }
 
@@ -136,7 +144,7 @@ jQuery(function ($) {
         $(".products .product_amount").each(function () {
             totalFlowerCount += (parseInt($(this).val()) || 0);
         });
-        console.log("totalFlowerCount: " + totalFlowerCount);
+        //console.log("totalFlowerCount: " + totalFlowerCount);
         return totalFlowerCount;
     }
 
@@ -244,15 +252,7 @@ jQuery(function ($) {
             ".products .destination_wrapper": {
                 "width": "0px",
                 "padding-left": "100%"
-            }, /*
-             ".products .product_name": {
-             "width": "auto",
-             "height": "auto",
-             },
-             ".products .product_price": {
-             "width": "auto",
-             "height": "auto",
-             }*/
+            },
             ".products .product_hid_wrapper": {
                 "display": "table-cell"
             },
@@ -272,16 +272,8 @@ jQuery(function ($) {
             },
             ".products .destination_wrapper": {
                 "width": "100%",
-                "padding-left": "140px"
-            }, /*
-             ".products .product_name": {
-             "width": "0px",
-             "height": "0px",
-             },
-             ".products .product_price": {
-             "width": "0px",
-             "height": "0px",
-             }*/
+                "padding-left": "129px"
+            },
             ".products .product_hid_wrapper": {
                 "display": "none"
             },
@@ -330,11 +322,14 @@ jQuery(function ($) {
             var elementStack = [];
             if (getTotalFlowersCount() < 1) {
                 for (var selector in mobileElements.wideWindow) {
-                    elementStack.push($(selector).animate(mobileElements.wideWindow[selector]), 800);
+                    elementStack.push($(selector).animate(mobileElements.wideWindow[selector], 800));
                 }
-                $.when(elementStack).done(function () {
+                $.when.apply(this, elementStack).done(function () {
                     drawBoquetAfterAnimation(flowers);
                 });
+                /*$.when(elementStack).done(function () {
+                    drawBoquetAfterAnimation(flowers);
+                });*/
                 /*$.when(
                  $(".products .source").animate({
                  width: "100%"
@@ -353,9 +348,10 @@ jQuery(function ($) {
                  });*/
             } else {
                 for (var selector in mobileElements.narrowWindow) {
-                    elementStack.push($(selector).animate(mobileElements.narrowWindow[selector]));
+                    elementStack.push($(selector).animate(mobileElements.narrowWindow[selector], 800));
                 }
-                $.when(elementStack).done(function () {
+                //$.when(elementStack).done(function () {
+                $.when.apply(this, elementStack).done(function () {
                     drawBoquetAfterAnimation(flowers);
                 });
                 /*$.when(
@@ -476,7 +472,7 @@ jQuery(function ($) {
     }
 
     function raiseFlower(x, y, width, id, totalAmount, order) {
-        console.log("X: " + x + "; Y: " + y + "; Width: " + width + "; id: " + id);
+        //console.log("X: " + x + "; Y: " + y + "; Width: " + width + "; id: " + id);
 
         var halfWidth = width / 2;
 

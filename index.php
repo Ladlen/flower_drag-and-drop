@@ -3,9 +3,11 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
-require_once 'functions.php';
-
 $productItems = require 'product_list.php';
+
+function sc($html) {
+    return htmlspecialchars($html, ENT_QUOTES);
+}
 
 ?>
 <!DOCTYPE html>
@@ -73,7 +75,7 @@ $productItems = require 'product_list.php';
                                                            class="product_amount"
                                                            value="0" maxlength="3"></td>
                                                 <td>
-                                                    <div class="in-bouquet"></div>
+                                                    <div class="in-bouquet" title="В букет"></div>
                                                 </td>
                                             </tr>
                                         </table>
@@ -88,63 +90,12 @@ $productItems = require 'product_list.php';
             </div>
         </div>
 
-        <!--<div class="source_wrapper">
-            <ul class="source connectedSortable">
-
-                <?php /*foreach ($productItems as $elem): */?>
-
-                    <li class="ui-state-default product" data-id="<?php /*echo sc($elem['id']) */?>"
-                        data-image_top="<?php /*echo sc($elem['image_top']) */?>"
-                        data-price="<?php /*echo sc($elem['price']) */?>"
-                        data-name="<?php /*echo sc($elem['name']) */?>">
-                        <div class="product_image" title="<?php /*echo sc($elem['name']) */?>"
-                             style="background-image: url('images/products/<?php /*echo sc($elem['image_preview']) */?>')"></div>
-
-                        <table class="item-info">
-                            <tr>
-                                <td><label for="product_amount_<?php /*echo sc($elem['id']) */?>"
-                                           class="product_name"><?php /*echo sc($elem['name']) */?></label></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table class="product_price_block">
-                                        <tr>
-                                            <td>
-                                                <div class="product_price"><?php /*echo sc($elem['price']) */?></div>
-                                            </td>
-                                            <td><img class="ruble_sign" src="images/ruble_sign_2.png" alt="ruble"></td>
-                                            <td><input id="product_amount_<?php /*echo sc($elem['id']) */?>"
-                                                       class="product_amount"
-                                                       value="0" maxlength="3"></td>
-                                            <td>
-                                                <div class="in-bouquet"></div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                    </li>
-
-                <?php /*endforeach; */?>
-
-            </ul>
-        </div>-->
-        <!--<div class="destination_wrapper">
-            <div class="destination connectedSortable"></div>
-        </div>-->
-
         <div class="product_info">
             <span class="total_amount">0</span> руб.
             <button class="btn btn-default btn_order" disabled="disabled">Заказать</button>
         </div>
 
     </div>
-
-    <!--<div class="product_info">
-        <span class="total_amount">0</span> руб.
-        <button class="btn btn-default btn_order" disabled="disabled">Заказать</button>
-    </div>-->
 
 </div>
 
@@ -174,7 +125,6 @@ $productItems = require 'product_list.php';
 </div>
 
 <div id="succes_popup" class="contact_popup">
-    <!--<span class="b-close"><span>X</span></span>-->
     Спасибо,<br>Ваш заказ принят, скоро с Вами свяжется наш менеджер.
     <button class="btn btn-primary" id="custom_contact_close" name="contact_send" value="contact_send">Закрыть</button>
 </div>
