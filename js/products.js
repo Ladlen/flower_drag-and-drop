@@ -15,6 +15,8 @@ jQuery(function ($) {
         $(".products .source").css("-webkit-border-bottom-right-radius", 0);
         $(".products .source").css("border-top-right-radius", 0);
         $(".products .source").css("border-bottom-right-radius", 0);
+        $(".products .product_info button").css("padding-left", "1em");
+        $(".products .product_info button").css("padding-right", "1em");
         $(".products").css("width", "100%");
         smallWindow = true;
     }
@@ -51,10 +53,17 @@ jQuery(function ($) {
 
     $(".btn_order").click(function () {
         if ((parseFloat($(".total_amount").html()) || 0) > 0) {
+            $(".products .source").css("overflow-y", "hidden");
             $('#contact_popup').bPopup({
                 easing: 'easeOutBack',
                 speed: 450,
-                transition: 'slideDown'
+                transition: 'slideDown',
+                onOpen: function () {
+                    $(".products .source").css("overflow-y", "hidden");
+                },
+                onClose: function () {
+                    $(".products .source").css("overflow-y", "scroll");
+                }
             });
         }
     });
@@ -328,8 +337,8 @@ jQuery(function ($) {
                     drawBoquetAfterAnimation(flowers);
                 });
                 /*$.when(elementStack).done(function () {
-                    drawBoquetAfterAnimation(flowers);
-                });*/
+                 drawBoquetAfterAnimation(flowers);
+                 });*/
                 /*$.when(
                  $(".products .source").animate({
                  width: "100%"
@@ -509,6 +518,7 @@ jQuery(function ($) {
 
     $("#custom_contact_close").click(function () {
         $('#succes_popup').bPopup().close();
+        $(".products .source").css("overflow-y", "scroll");
     });
 
     $("#custom_contact_form").submit(function (e) {
@@ -563,11 +573,21 @@ jQuery(function ($) {
                 if (response == "0") {
                     alert("Ошибка отправки заказа: попробуйте повторить попытку позже.");
                 } else {
-                    $('#contact_popup').bPopup().close();
+                    $('#contact_popup').bPopup(/*{
+                     onOpen: function() {
+                     $(".products .source").css("overflow-y", "hidden");
+                     },
+                     onClose: function() {
+                     $(".products .source").css("overflow-y", "scroll");
+                     }
+                     }*/).close();
                     $('#succes_popup').bPopup({
                         easing: 'easeOutBack',
                         speed: 450,
-                        transition: 'slideDown'
+                        transition: 'slideDown',
+                        onClose: function () {
+                            $(".products .source").css("overflow-y", "scroll");
+                        }
                     });
                     $("#custom_contact_form").get(0).reset();
                 }

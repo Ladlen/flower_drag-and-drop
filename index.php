@@ -91,7 +91,7 @@ function sc($html) {
         </div>
 
         <div class="product_info">
-            <span class="total_amount">0</span> руб.
+            <div class="price_wrapper"><span class="total_amount">0</span> руб.</div>
             <button class="btn btn-default btn_order" disabled="disabled">Заказать</button>
         </div>
 
